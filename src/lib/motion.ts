@@ -17,10 +17,12 @@ export const duration = {
   fast: 0.2,
   /** Text-Reveals, Standard für Einblendungen. */
   base: 0.5,
-  /** Bild-Reveals und Crossfades. */
+  /** Bild-Reveals (einmaliges Einlaufen großer Story-Bilder). */
   image: 0.8,
   /** Hero-Entrance (langsamer Zoom). */
   hero: 1.6,
+  /** Crossfade beim Wechsel des Category-Mood-Bilds in der Speisekarte. */
+  categoryChange: 0.45,
 } as const;
 
 export const easing = {

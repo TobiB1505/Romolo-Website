@@ -99,6 +99,25 @@ body:has([data-hero-sentinel]) main {
   padding-top: 0;
 }
 
+/*
+  Anchor-Navigation (z. B. Speisekarten-Kategorien) darf sanft scrollen.
+  Die bestehende prefers-reduced-motion-Regel weiter unten setzt
+  scroll-behavior bereits auf "auto" zurück – hier nur die Basis.
+*/
+html {
+  scroll-behavior: smooth;
+}
+
+/*
+  Scroll-Ziel-Abstand für Anchor-Sprünge (z. B. #pizza), damit die fixierte
+  Kopfzeile die Zielüberschrift nicht verdeckt. Kopfzeile ist auf Seiten ohne
+  Hero-Sentinel konstant --header-h hoch (siehe Header.tsx); zusätzlicher
+  Puffer, damit die Überschrift nicht direkt an der Kante klebt.
+*/
+.scroll-anchor {
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+}
+
 /* ---------------------------------------------------------------------------
    Wiederkehrende Textstile
 --------------------------------------------------------------------------- */

@@ -36,6 +36,19 @@ export function HeroCinematic() {
             animate={{ scale: 1 }}
             transition={{ duration: prefersReducedMotion ? 0 : duration.hero, ease: easing.entrance }}
           >
+            {/*
+              Objekt-Position bewusst gesetzt statt Default-"center": Die
+              Quelle ist nahezu quadratisch (1198×1360), der Container reicht
+              aber von sehr schmal-hoch (Mobile) bis sehr breit-flach
+              (Desktop). Bei einem derart extremen Bereich beschneidet
+              `cover` auf Mobile die Breite (X-Wert entscheidet) und am
+              Desktop die Höhe (Y-Wert entscheidet) – eine einzige,
+              zweidimensionale Position kann hier beide Fälle sinnvoll
+              bedienen, ohne getrennte Bild-Assets für Mobile/Desktop zu
+              brauchen: 45% X hält mehr vom Fenster/Tisch links im
+              Mobile-Ausschnitt, 58% Y priorisiert den Tisch gegenüber der
+              Deckenwölbung im breiten Desktop-Ausschnitt.
+            */}
             <Image
               src={heroImage.src}
               alt={heroImage.alt}
@@ -44,6 +57,7 @@ export function HeroCinematic() {
               fetchPriority="high"
               sizes="100vw"
               className="object-cover"
+              style={{ objectPosition: "45% 58%" }}
             />
           </m.div>
         </ParallaxImage>
