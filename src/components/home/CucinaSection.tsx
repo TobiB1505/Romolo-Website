@@ -6,7 +6,6 @@ import { Reveal } from "@/components/motion/Reveal";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { menuGroups } from "@/lib/data/menu";
 import { aboutContent } from "@/lib/data/restaurant";
-import { findGalleryImage } from "@/lib/data/gallery";
 import type { MenuItem } from "@/lib/types";
 import styles from "./HomeEditorial.module.css";
 
@@ -24,11 +23,13 @@ function getSignatureDishes(): MenuItem[] {
     .filter((item): item is MenuItem => Boolean(item));
 }
 
-const roomImage = findGalleryImage("interior-6");
-const detailImage = findGalleryImage("interior-1");
 const pastaImage = {
-  src: "/images/gallery/hero-1.jpg",
-  alt: "Spaghetti auf einer Gabel mit Tomate und Basilikum",
+  src: "/images/categories/pasta.png",
+  alt: "Italienisches Pastagericht mit Basilikum, Parmesan und frischen Zutaten",
+};
+const dessertImage = {
+  src: "/images/categories/dolci.png",
+  alt: "Italienische Desserts mit Tiramisù, Cannoli und Espresso",
 };
 
 export function CucinaSection() {
@@ -79,15 +80,12 @@ export function CucinaSection() {
 
           <div className={`${styles.cucinaGallery} lg:col-span-7`}>
             <ImageReveal className={`${styles.cucinaImageMain} relative overflow-hidden`}>
-              <Image src={pastaImage.src} alt={pastaImage.alt} fill sizes="(min-width: 1024px) 46vw, 100vw" className={styles.editorialImage} />
-              <span className={styles.imageCaption}>Il dettaglio</span>
+              <Image src={pastaImage.src} alt={pastaImage.alt} fill sizes="(min-width: 1024px) 35vw, 82vw" className={styles.editorialImage} />
+              <span className={styles.imageCaption}>Pasta fatta con amore</span>
             </ImageReveal>
-            <ImageReveal delay={0.12} className={`${styles.cucinaImageRoom} relative overflow-hidden`}>
-              <Image src={roomImage.src} alt={roomImage.alt} fill sizes="(min-width: 1024px) 28vw, 56vw" className={styles.editorialImage} />
-              <span className={styles.imageCaption}>La sala</span>
-            </ImageReveal>
-            <ImageReveal delay={0.18} className={`${styles.cucinaImageDetail} relative overflow-hidden`}>
-              <Image src={detailImage.src} alt={detailImage.alt} fill sizes="(min-width: 1024px) 19vw, 36vw" className={styles.editorialImage} />
+            <ImageReveal delay={0.14} className={`${styles.cucinaImageAccent} relative overflow-hidden`}>
+              <Image src={dessertImage.src} alt={dessertImage.alt} fill sizes="(min-width: 1024px) 19vw, 44vw" className={styles.editorialImage} />
+              <span className={styles.imageCaption}>Dolce finale</span>
             </ImageReveal>
           </div>
         </div>
