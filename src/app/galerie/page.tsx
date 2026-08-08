@@ -1,32 +1,42 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Container } from "@/components/Container";
-import { PageHero } from "@/components/PageHero";
-import { galleryImages } from "@/lib/data/gallery";
+import { InteriorPageHero } from "@/components/InteriorPageHero";
+import { GalleryExperience } from "@/components/gallery/GalleryExperience";
+import { Reveal } from "@/components/motion/Reveal";
+import { galleryImages, findGalleryImage } from "@/lib/data/gallery";
+import styles from "../InteriorPages.module.css";
 
 export const metadata: Metadata = {
   title: "Galerie",
   description: "Impressionen aus dem Ristorante da Romolo in Miesbach: Gewölbekeller, Gastraum und Innenhof.",
 };
 
+const heroImage = findGalleryImage("interior-3");
+
 export default function GaleriePage() {
   return (
-    <div>
-      <PageHero title="Galerie" subtitle="Ein paar Eindrücke aus unserem Restaurant am Stadtplatz." />
-      <Container className="py-16">
-        <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
-          {galleryImages.map((img) => (
-            <div key={img.src} className="relative overflow-hidden rounded-lg break-inside-avoid">
-              <Image
-                src={img.src}
-                alt={img.alt}
-                width={img.width}
-                height={img.height}
-                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="h-auto w-full object-cover"
-              />
-            </div>
-          ))}
+    <div className={styles.page}>
+      <InteriorPageHero
+        title="Galleria"
+        eyebrow="Räume & Momente"
+        number="04"
+        subtitle="Ein Abend bei Romolo lebt von den kleinen Augenblicken – warmes Licht, gedeckte Tische und Zeit füreinander."
+        image={heroImage}
+      />
+
+      <Container size="wide" className="py-section">
+        <div className={styles.introGrid}>
+          <Reveal className={styles.introLabel}>Uno sguardo dentro</Reveal>
+          <Reveal delay={0.08} className={styles.introTitle}>
+            Jeder Raum erzählt seine eigene Geschichte.
+          </Reveal>
+          <Reveal delay={0.14} className={styles.introCopy}>
+            Vom hellen Gastraum unter historischen Gewölben bis zum begrünten Innenhof: Entdecken Sie die Atmosphäre, die einen Besuch bei uns besonders macht.
+          </Reveal>
+        </div>
+
+        <div className="mt-section-sm">
+          <GalleryExperience images={galleryImages} />
         </div>
       </Container>
     </div>

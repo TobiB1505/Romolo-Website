@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { ArrowRight } from "lucide-react";
+import styles from "./ReservationForm.module.css";
 
 type Status = "idle" | "submitting" | "success" | "error";
-
-const inputClasses =
-  "w-full rounded-md border border-ink/15 bg-cream px-4 py-2.5 text-ink placeholder:text-ink-soft/50 focus:border-terracotta focus:outline-none focus:ring-1 focus:ring-terracotta";
 
 export function ReservationForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -41,7 +40,7 @@ export function ReservationForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-lg bg-forest/10 p-6 text-forest">
+      <div className={styles.success}>
         <p className="font-medium">Vielen Dank für Ihre Reservierungsanfrage!</p>
         <p className="mt-1 text-sm">Wir melden uns so schnell wie möglich bei Ihnen zur Bestätigung.</p>
       </div>
@@ -49,64 +48,64 @@ export function ReservationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className={styles.form}>
       {/* Honeypot – für echte Nutzer unsichtbar */}
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="name" className="mb-1.5 block text-sm font-medium">
+      <div className={styles.row}>
+        <div className={styles.field}>
+          <label htmlFor="name">
             Name *
           </label>
-          <input id="name" name="name" type="text" required className={inputClasses} />
+          <input id="name" name="name" type="text" autoComplete="name" required className={styles.input} />
         </div>
-        <div>
-          <label htmlFor="email" className="mb-1.5 block text-sm font-medium">
+        <div className={styles.field}>
+          <label htmlFor="email">
             E-Mail *
           </label>
-          <input id="email" name="email" type="email" required className={inputClasses} />
+          <input id="email" name="email" type="email" autoComplete="email" required className={styles.input} />
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="phone" className="mb-1.5 block text-sm font-medium">
+      <div className={styles.row}>
+        <div className={styles.field}>
+          <label htmlFor="phone">
             Telefon
           </label>
-          <input id="phone" name="phone" type="tel" className={inputClasses} />
+          <input id="phone" name="phone" type="tel" autoComplete="tel" className={styles.input} />
         </div>
-        <div>
-          <label htmlFor="partySize" className="mb-1.5 block text-sm font-medium">
+        <div className={styles.field}>
+          <label htmlFor="partySize">
             Personenzahl *
           </label>
-          <input id="partySize" name="partySize" type="number" min={1} max={30} required className={inputClasses} />
+          <input id="partySize" name="partySize" type="number" min={1} max={30} required className={styles.input} />
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="date" className="mb-1.5 block text-sm font-medium">
+      <div className={styles.row}>
+        <div className={styles.field}>
+          <label htmlFor="date">
             Datum *
           </label>
-          <input id="date" name="date" type="date" required className={inputClasses} />
+          <input id="date" name="date" type="date" required className={styles.input} />
         </div>
-        <div>
-          <label htmlFor="time" className="mb-1.5 block text-sm font-medium">
+        <div className={styles.field}>
+          <label htmlFor="time">
             Uhrzeit *
           </label>
-          <input id="time" name="time" type="time" required className={inputClasses} />
+          <input id="time" name="time" type="time" required className={styles.input} />
         </div>
       </div>
 
-      <div>
-        <label htmlFor="message" className="mb-1.5 block text-sm font-medium">
+      <div className={styles.field}>
+        <label htmlFor="message">
           Nachricht
         </label>
-        <textarea id="message" name="message" rows={4} className={inputClasses} placeholder="Allergien, besondere Wünsche, …" />
+        <textarea id="message" name="message" rows={4} className={styles.input} placeholder="Allergien, besondere Wünsche, …" />
       </div>
 
       {status === "error" && (
-        <p className="rounded-md bg-terracotta/10 px-4 py-3 text-sm text-terracotta-dark">
+        <p className={styles.error}>
           {errorMessage || "Es ist ein Fehler aufgetreten. Bitte rufen Sie uns an."}
         </p>
       )}
@@ -114,11 +113,11 @@ export function ReservationForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="w-full rounded-full bg-terracotta px-6 py-3 text-sm font-medium text-cream transition-colors hover:bg-terracotta-dark disabled:opacity-60 sm:w-auto"
+        className={styles.button}
       >
-        {status === "submitting" ? "Wird gesendet …" : "Reservierungsanfrage senden"}
+        {status === "submitting" ? "Wird gesendet …" : <>Reservierungsanfrage senden <ArrowRight size={16} aria-hidden /></>}
       </button>
-      <p className="text-xs text-ink-soft">
+      <p className={styles.note}>
         Diese Anfrage ist unverbindlich. Wir bestätigen Ihre Reservierung per E-Mail oder Telefon.
       </p>
     </form>

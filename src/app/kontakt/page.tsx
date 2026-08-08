@@ -1,73 +1,64 @@
 import type { Metadata } from "next";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/Container";
-import { PageHero } from "@/components/PageHero";
+import { InteriorPageHero } from "@/components/InteriorPageHero";
 import { ReservationForm } from "@/components/ReservationForm";
 import { MapEmbed } from "@/components/MapEmbed";
+import { Reveal } from "@/components/motion/Reveal";
 import { restaurant } from "@/lib/data/restaurant";
+import { findGalleryImage } from "@/lib/data/gallery";
+import styles from "../InteriorPages.module.css";
 
 export const metadata: Metadata = {
   title: "Kontakt & Reservierung",
-  description:
-    "Tisch reservieren im Ristorante da Romolo in Miesbach – per Formular oder telefonisch unter +49 8025 9978676.",
+  description: "Tisch reservieren im Ristorante da Romolo in Miesbach – per Formular oder telefonisch unter +49 8025 9978676.",
 };
+
+const heroImage = findGalleryImage("interior-5");
 
 export default function KontaktPage() {
   return (
-    <div>
-      <PageHero title="Kontakt & Reservierung" subtitle="Wir freuen uns auf Ihre Anfrage." />
-      <Container className="grid gap-16 py-16 lg:grid-cols-[1.1fr_0.9fr]">
-        <div>
-          <h2 className="font-display text-2xl">Tisch reservieren</h2>
-          <p className="mt-2 text-sm text-ink-soft">
-            Reservierungen sind auch weiterhin jederzeit telefonisch möglich. Alternativ senden Sie uns gerne eine
-            unverbindliche Anfrage über dieses Formular.
-          </p>
-          <div className="mt-8">
-            <ReservationForm />
-          </div>
+    <div className={styles.page}>
+      <InteriorPageHero
+        title="Prenotazione"
+        eyebrow="Kontakt & Reservierung"
+        number="06"
+        subtitle="Ihr Tisch bei Romolo – fragen Sie Ihren Wunschtermin online an oder rufen Sie uns direkt an."
+        image={heroImage}
+      />
+
+      <Container size="wide" className="py-section">
+        <div className={styles.contactGrid}>
+          <Reveal className={styles.formPanel}>
+            <h2>Ein Tisch<br />für Sie.</h2>
+            <p>Schicken Sie uns Ihre unverbindliche Reservierungsanfrage. Wir melden uns persönlich bei Ihnen und bestätigen den Termin.</p>
+            <div className="mt-10"><ReservationForm /></div>
+          </Reveal>
+
+          <Reveal delay={0.1} className={styles.contactAside}>
+            <div className={styles.contactAsideInner}>
+              <span className="eyebrow text-gold">Concierge</span>
+              <h2 className="mt-4">Direkter Kontakt</h2>
+              <ul className={styles.contactList}>
+                <li><MapPin size={18} aria-hidden /><span>{restaurant.street}<br />{restaurant.zip} {restaurant.city}</span></li>
+                <li><Phone size={18} aria-hidden /><a href={restaurant.phoneHref}>{restaurant.phone}</a></li>
+                <li><Mail size={18} aria-hidden /><a href={`mailto:${restaurant.email}`}>{restaurant.email}</a></li>
+                <li>
+                  <Clock size={18} aria-hidden />
+                  <ul className={styles.hours}>
+                    {restaurant.hours.map((entry) => (
+                      <li key={entry.day}><span>{entry.day}</span><span>{entry.hours}</span></li>
+                    ))}
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </Reveal>
         </div>
 
-        <div className="space-y-8">
-          <div className="rounded-lg bg-cream-dark p-6">
-            <h2 className="font-display text-xl">So erreichen Sie uns</h2>
-            <ul className="mt-4 space-y-4 text-sm">
-              <li className="flex gap-3">
-                <MapPin size={18} className="mt-0.5 shrink-0 text-terracotta" />
-                <span>
-                  {restaurant.street}
-                  <br />
-                  {restaurant.zip} {restaurant.city}
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <Phone size={18} className="mt-0.5 shrink-0 text-terracotta" />
-                <a href={restaurant.phoneHref} className="hover:text-terracotta">
-                  {restaurant.phone}
-                </a>
-              </li>
-              <li className="flex gap-3">
-                <Mail size={18} className="mt-0.5 shrink-0 text-terracotta" />
-                <a href={`mailto:${restaurant.email}`} className="hover:text-terracotta">
-                  {restaurant.email}
-                </a>
-              </li>
-              <li className="flex gap-3">
-                <Clock size={18} className="mt-0.5 shrink-0 text-terracotta" />
-                <ul className="space-y-0.5">
-                  {restaurant.hours.map((h) => (
-                    <li key={h.day} className="flex justify-between gap-4">
-                      <span>{h.day}</span>
-                      <span className="text-ink-soft">{h.hours}</span>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            </ul>
-          </div>
-
-          <MapEmbed />
-        </div>
+        <Reveal>
+          <div className={styles.mapWrap}><MapEmbed /></div>
+        </Reveal>
       </Container>
     </div>
   );

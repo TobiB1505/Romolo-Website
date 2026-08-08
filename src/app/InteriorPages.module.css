@@ -1,0 +1,58 @@
+.page { overflow: hidden; background: var(--color-cream); }
+.introGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 2rem; }
+.introLabel { grid-column: span 3; color: var(--color-terracotta); font-size: 0.63rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
+.introTitle { grid-column: span 8; color: var(--color-ink); font-family: var(--font-display), Georgia, serif; font-size: clamp(3rem, 6vw, 6rem); font-style: italic; line-height: 0.98; letter-spacing: -0.035em; }
+.introCopy { grid-column: 5 / span 6; margin-top: 1rem; color: var(--color-ink-soft); font-size: 1.05rem; line-height: 1.8; }
+.aboutComposition { position: relative; min-height: clamp(46rem, 78vw, 65rem); margin-top: clamp(4rem, 9vw, 8rem); }
+.aboutMainImage { position: absolute; top: 0; right: 0; width: 72%; aspect-ratio: 16 / 11; overflow: hidden; }
+.aboutSideImage { position: absolute; left: 0; bottom: 0; width: 38%; aspect-ratio: 4 / 5; overflow: hidden; border: 0.75rem solid var(--color-cream); }
+.image { object-fit: cover; transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
+.aboutMainImage:hover .image, .aboutSideImage:hover .image { transform: scale(1.035); }
+.aboutCard { position: absolute; z-index: 2; right: 4%; bottom: 3%; width: min(90%, 31rem); padding: clamp(2rem, 4vw, 3.5rem); background: var(--color-forest-dark); color: var(--color-cream); box-shadow: 0 30px 70px -45px rgb(38 49 41 / 0.8); }
+.aboutCard span { color: var(--color-gold); font-family: var(--font-display); font-size: 4rem; line-height: 0.5; }
+.aboutCard p { margin-top: 1rem; color: rgb(250 244 233 / 0.7); line-height: 1.8; }
+.values { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--color-hairline); }
+.value { padding: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 3vw, 2.5rem); border-right: 1px solid var(--color-hairline); }
+.value:last-child { border-right: 0; }
+.value span { color: var(--color-terracotta); font-size: 0.6rem; letter-spacing: 0.14em; }
+.value h3 { margin-top: 1rem; color: var(--color-ink); font-family: var(--font-display); font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 400; }
+.value p { margin-top: 1rem; color: var(--color-ink-soft); font-size: 0.88rem; line-height: 1.7; }
+.aboutCta { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: clamp(2rem, 5vw, 4rem); background: var(--color-terracotta); color: var(--color-cream); }
+.aboutCta h2 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 5rem); font-style: italic; font-weight: 400; line-height: 0.95; }
+.aboutCta a { display: inline-flex; min-height: 3.2rem; align-items: center; gap: 1rem; border: 1px solid rgb(250 244 233 / 0.45); border-radius: 999px; padding: 0 1.5rem; font-size: 0.76rem; white-space: nowrap; transition: gap 300ms ease, background-color 300ms ease, color 300ms ease; }
+.aboutCta a:hover { gap: 1.4rem; background: var(--color-cream); color: var(--color-terracotta); }
+.contactGrid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(20rem, 0.75fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.formPanel { padding: clamp(2rem, 5vw, 4rem); background: var(--color-cream-warm); }
+.formPanel h2 { font-family: var(--font-display); font-size: clamp(2.7rem, 5vw, 4.8rem); font-weight: 400; line-height: 0.95; }
+.formPanel > p { max-width: 36rem; margin-top: 1.25rem; color: var(--color-ink-soft); line-height: 1.7; }
+.contactAside { position: sticky; top: 6rem; background: var(--color-forest-dark); color: var(--color-cream); }
+.contactAsideInner { padding: clamp(2rem, 4vw, 3rem); }
+.contactAside h2 { font-family: var(--font-display); font-size: 2.2rem; font-weight: 400; }
+.contactList { margin-top: 2rem; }
+.contactList > li { display: grid; grid-template-columns: 1.5rem 1fr; gap: 0.8rem; padding: 1rem 0; border-top: 1px solid rgb(250 244 233 / 0.12); color: rgb(250 244 233 / 0.7); font-size: 0.82rem; line-height: 1.6; }
+.contactList svg { color: var(--color-gold); }
+.hours { margin-top: 0.4rem; }
+.hours li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.3rem 0; }
+.hours li span:last-child { color: rgb(250 244 233 / 0.52); text-align: right; }
+.mapWrap { margin-top: clamp(3rem, 7vw, 6rem); padding: clamp(1rem, 2vw, 1.5rem); background: var(--color-ink-deep); }
+.mapWrap > div, .mapWrap > iframe { min-height: 28rem; aspect-ratio: auto; border-radius: 0; }
+
+@media (max-width: 63.999rem) {
+  .introLabel { grid-column: span 12; }
+  .introTitle { grid-column: span 12; }
+  .introCopy { grid-column: 3 / span 9; }
+  .contactGrid { grid-template-columns: 1fr; }
+  .contactAside { position: relative; top: auto; }
+}
+
+@media (max-width: 47.999rem) {
+  .introCopy { grid-column: span 12; }
+  .aboutComposition { min-height: 48rem; }
+  .aboutMainImage { width: 92%; }
+  .aboutSideImage { width: 54%; }
+  .aboutCard { right: 0; bottom: 0; width: 88%; }
+  .values { grid-template-columns: 1fr; }
+  .value { border-right: 0; border-bottom: 1px solid var(--color-hairline); }
+  .aboutCta { align-items: flex-start; flex-direction: column; }
+  .formPanel { margin: 0 -1.5rem; }
+}
