@@ -37,6 +37,7 @@ const HERO_EXIT_OFFSET = 64;
 export function Header() {
   const pathname = usePathname();
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
   /**
@@ -90,6 +91,7 @@ export function Header() {
 
   const openMenu = useCallback(() => {
     dialogRef.current?.showModal();
+    closeButtonRef.current?.focus();
     setMenuOpen(true);
   }, []);
 
@@ -218,6 +220,7 @@ export function Header() {
           <div className={styles.menuTop}>
             <Link href="/" onClick={closeMenu} className={styles.menuBrand}>Ristorante da Romolo</Link>
             <button
+              ref={closeButtonRef}
               type="button"
               onClick={closeMenu}
               aria-label="Menü schließen"
