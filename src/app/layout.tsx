@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { getRestaurantJsonLd } from "@/lib/jsonld";
 import { restaurant } from "@/lib/data/restaurant";
+import { siteUrl } from "@/lib/site";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -17,8 +18,6 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
-
-const siteUrl = "https://www.ristorante-da-romolo.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -36,6 +36,9 @@ export async function POST(request: Request) {
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.RESERVATION_TO_EMAIL || restaurant.email;
+  // Die Absender-Domain muss in Resend verifiziert sein; onboarding@resend.dev
+  // funktioniert als Fallback ohne eigene Domain (nur für Tests geeignet).
+  const from = process.env.RESEND_FROM_EMAIL || "Ristorante da Romolo <onboarding@resend.dev>";
 
   if (!apiKey) {
     console.warn(
@@ -52,7 +55,7 @@ export async function POST(request: Request) {
 
   try {
     await resend.emails.send({
-      from: "Reservierung Website <reservierung@ristorante-da-romolo.com>",
+      from,
       to,
       replyTo: data.email,
       subject: `Neue Reservierungsanfrage – ${data.name} (${data.date}, ${data.time})`,

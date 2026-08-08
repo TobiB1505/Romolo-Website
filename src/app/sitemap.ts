@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-
-const siteUrl = "https://www.ristorante-da-romolo.com";
+import { siteUrl } from "@/lib/site";
 
 const routes = ["", "/speisekarte", "/galerie", "/ueber-uns", "/kontakt", "/impressum", "/datenschutz", "/widerruf"];
 
