@@ -4,9 +4,10 @@ import Image from "next/image";
 import { m, useReducedMotion } from "motion/react";
 import { duration, easing } from "@/lib/motion";
 import type { MenuVisualGroup } from "@/lib/data/menuPresentation";
+import styles from "./MenuExperience.module.css";
 
 interface CategoryMoodImageProps {
-  groups: Pick<MenuVisualGroup, "id" | "moodImage">[];
+  groups: Pick<MenuVisualGroup, "id" | "number" | "label" | "editorial" | "moodImage">[];
   activeId: string;
 }
 
@@ -30,13 +31,13 @@ export function CategoryMoodImage({ groups, activeId }: CategoryMoodImageProps) 
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <div className="relative aspect-[4/5] overflow-hidden rounded-image">
+    <div className={styles.moodFrame}>
       {groups.map((group, index) => {
         const isActive = group.id === activeId;
         return (
           <m.div
             key={group.id}
-            className="absolute inset-0"
+            className={styles.moodLayer}
             initial={false}
             animate={{
               opacity: isActive ? 1 : 0,
@@ -49,14 +50,28 @@ export function CategoryMoodImage({ groups, activeId }: CategoryMoodImageProps) 
               src={group.moodImage.src}
               alt=""
               fill
-              priority={index === 0}
+              loading={index === 0 ? "eager" : "lazy"}
               sizes="(min-width: 1024px) 38vw, 0vw"
-              className="object-cover"
+              className={styles.moodImage}
               style={{ objectPosition: group.moodImage.objectPosition ?? "center" }}
             />
+            <div className={styles.moodShade} aria-hidden />
+            {isActive && (
+              <m.div
+                className={styles.moodCaption}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: prefersReducedMotion ? 0 : 0.55, delay: prefersReducedMotion ? 0 : 0.12, ease: easing.entrance }}
+              >
+                <span>{group.number} / {String(groups.length).padStart(2, "0")}</span>
+                <strong>{group.label}</strong>
+                {group.editorial && <p>{group.editorial}</p>}
+              </m.div>
+            )}
           </m.div>
         );
       })}
+      <span className={styles.moodCorner} aria-hidden>Da Romolo</span>
     </div>
   );
 }

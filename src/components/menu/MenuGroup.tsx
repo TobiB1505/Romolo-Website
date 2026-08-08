@@ -2,6 +2,7 @@ import Image from "next/image";
 import { MenuCategoryCard } from "@/components/MenuCategoryCard";
 import { Reveal } from "@/components/motion/Reveal";
 import type { MenuVisualGroup } from "@/lib/data/menuPresentation";
+import styles from "./MenuExperience.module.css";
 
 /**
  * Eine visuelle Hauptgruppe (z. B. "Antipasti") mit ihren echten
@@ -17,19 +18,18 @@ export function MenuGroup({ group, isFirst }: { group: MenuVisualGroup; isFirst:
       id={group.id}
       data-menu-group
       aria-labelledby={`${group.id}-heading`}
-      className="scroll-anchor py-14 first:pt-0 lg:py-16"
+      className={`${styles.menuGroup} scroll-anchor`}
     >
       <Reveal>
-        <div className="flex items-baseline gap-3">
-          <span aria-hidden className="text-xs text-ink-soft/50">
-            {group.number}
-          </span>
-          <span className="eyebrow text-terracotta">Menü</span>
+        <div className={styles.groupIndex}>
+          <span aria-hidden>{group.number}</span>
+          <i aria-hidden />
+          <span>Capitolo</span>
         </div>
-        <h2 id={`${group.id}-heading`} className="mt-2 font-display text-display-md text-ink">
+        <h2 id={`${group.id}-heading`} className={styles.groupTitle}>
           {group.label}
         </h2>
-        {group.editorial && <p className="mt-2 max-w-measure text-ink-soft">{group.editorial}</p>}
+        {group.editorial && <p className={styles.groupEditorial}>{group.editorial}</p>}
       </Reveal>
 
       {/* Mood-Banner nur auf Mobile/Tablet, innerhalb der Gruppe statt global
@@ -40,19 +40,21 @@ export function MenuGroup({ group, isFirst }: { group: MenuVisualGroup; isFirst:
           (16:10 aus einem Hochkant-Bild ist ein viel schmalerer Ausschnitt
           als 4:5) – bevorzugt den Teller im unteren Bilddrittel statt der
           Schildmitte, siehe `mobileObjectPosition` in menuPresentation.ts. */}
-      <div className="relative mt-6 aspect-[16/10] w-full overflow-hidden rounded-image lg:hidden">
+      <div className={styles.mobileMood}>
         <Image
           src={group.moodImage.src}
           alt=""
           fill
           loading={isFirst ? "eager" : "lazy"}
           sizes="(min-width: 1024px) 0px, 100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-700 hover:scale-[1.02]"
           style={{ objectPosition: group.moodImage.mobileObjectPosition ?? "center" }}
         />
+        <div className={styles.mobileMoodShade} aria-hidden />
+        <span className={styles.mobileMoodLabel}>{group.number} · {group.label}</span>
       </div>
 
-      <div className="mt-10 grid gap-x-12 gap-y-10 lg:grid-cols-2">
+      <div className={styles.categoryGrid}>
         {group.categories.map((category) => (
           <MenuCategoryCard key={category.slug} category={category} />
         ))}

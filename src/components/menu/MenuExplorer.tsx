@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useReducedMotion } from "motion/react";
 import { CategoryRail } from "@/components/menu/CategoryRail";
 import { CategoryMoodImage } from "@/components/menu/CategoryMoodImage";
 import type { MenuVisualGroup } from "@/lib/data/menuPresentation";
+import styles from "./MenuExperience.module.css";
 
 interface MenuExplorerProps {
-  groups: Pick<MenuVisualGroup, "id" | "number" | "label" | "moodImage">[];
+  groups: Pick<MenuVisualGroup, "id" | "number" | "label" | "editorial" | "moodImage">[];
   children: ReactNode;
 }
 
@@ -20,6 +22,7 @@ interface MenuExplorerProps {
  * Wrapper-Component ist die einzige Client-Grenze der Seite.
  */
 export function MenuExplorer({ groups, children }: MenuExplorerProps) {
+  const prefersReducedMotion = useReducedMotion();
   const [activeId, setActiveId] = useState(groups[0]?.id ?? "");
   const activeIdRef = useRef(activeId);
 
@@ -88,31 +91,43 @@ export function MenuExplorer({ groups, children }: MenuExplorerProps) {
     return () => observer.disconnect();
   }, [groups]);
 
+  useEffect(() => {
+    if (window.innerWidth >= 1024) return;
+    const activeLink = document.querySelector<HTMLElement>(
+      `[data-menu-link="${activeId}"][data-menu-orientation="horizontal"]`
+    );
+    activeLink?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }, [activeId, prefersReducedMotion]);
+
   return (
-    <div>
+    <div className={styles.menuExplorer}>
       {/* Mobile/Tablet: horizontale Rail, sticky direkt unter der Kopfzeile. */}
       <div
-        className="sticky z-30 -mx-6 border-b border-hairline bg-cream/95 backdrop-blur-md lg:hidden"
+        className={`${styles.mobileRail} sticky z-30 -mx-6 lg:hidden`}
         style={{ top: "var(--header-h)" }}
       >
         <CategoryRail groups={groups} activeId={activeId} orientation="horizontal" />
       </div>
 
-      <div className="lg:grid lg:grid-cols-[36%_1fr] lg:gap-16 xl:grid-cols-[34%_1fr]">
+      <div className={styles.menuLayout}>
         {/* Desktop: sticky Bild + vertikale Rail. */}
-        <div className="hidden lg:block">
+        <aside className={styles.visualColumn} aria-label="Aktuelles Menükapitel">
           <div
-            className="sticky max-h-[calc(100svh-var(--header-h)-4rem)] overflow-y-auto pr-1"
+            className={styles.visualSticky}
             style={{ top: "calc(var(--header-h) + 2rem)" }}
           >
             <CategoryMoodImage groups={groups} activeId={activeId} />
-            <div className="mt-8">
+            <div className={styles.desktopRail}>
               <CategoryRail groups={groups} activeId={activeId} orientation="vertical" />
             </div>
           </div>
-        </div>
+        </aside>
 
-        <div>{children}</div>
+        <div className={styles.menuContent}>{children}</div>
       </div>
     </div>
   );

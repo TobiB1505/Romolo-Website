@@ -1,5 +1,7 @@
 import clsx from "clsx";
+import { ArrowUpRight } from "lucide-react";
 import type { MenuVisualGroup } from "@/lib/data/menuPresentation";
+import styles from "./MenuExperience.module.css";
 
 interface CategoryRailProps {
   groups: Pick<MenuVisualGroup, "id" | "number" | "label">[];
@@ -20,41 +22,26 @@ export function CategoryRail({ groups, activeId, orientation }: CategoryRailProp
 
   return (
     <nav aria-label="Speisekarten-Kategorien">
-      <ul
-        className={clsx(
-          isVertical
-            ? "space-y-1"
-            : "no-scrollbar flex snap-x snap-mandatory gap-2 overflow-x-auto px-6 py-3 sm:px-10"
-        )}
-      >
+      <ul className={clsx(isVertical ? styles.railVertical : `${styles.railHorizontal} no-scrollbar`)}>
         {groups.map((group) => {
           const isActive = group.id === activeId;
           return (
-            <li key={group.id} className={isVertical ? "" : "shrink-0 snap-start"}>
+            <li key={group.id} className={isVertical ? styles.railItem : "shrink-0 snap-start"}>
               <a
                 href={`#${group.id}`}
                 aria-current={isActive ? "true" : undefined}
+                data-menu-link={group.id}
+                data-menu-orientation={orientation}
                 className={clsx(
-                  "flex min-h-11 items-center rounded-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta",
+                  styles.railLink,
                   isVertical
-                    ? clsx(
-                        "gap-3 border-l-2 py-2 pl-4 text-sm",
-                        isActive
-                          ? "border-terracotta font-medium text-ink"
-                          : "border-hairline text-ink-soft hover:border-ink-soft/40 hover:text-ink"
-                      )
-                    : clsx(
-                        "gap-1.5 border-b-2 px-1 text-sm whitespace-nowrap",
-                        isActive ? "border-terracotta font-medium text-ink" : "border-transparent text-ink-soft"
-                      )
+                    ? clsx(styles.railLinkVertical, isActive && styles.railLinkActive)
+                    : clsx(styles.railLinkHorizontal, isActive && styles.railChipActive)
                 )}
               >
-                {isVertical && (
-                  <span aria-hidden className={clsx("text-xs tabular-nums", isActive ? "text-terracotta" : "text-ink-soft/60")}>
-                    {group.number}
-                  </span>
-                )}
-                {group.label}
+                <span aria-hidden className={styles.railNumber}>{group.number}</span>
+                <span className={styles.railLabel}>{group.label}</span>
+                {isVertical && <ArrowUpRight size={14} aria-hidden className={styles.railArrow} />}
               </a>
             </li>
           );

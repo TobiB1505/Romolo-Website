@@ -1,25 +1,29 @@
 import type { MenuCategory } from "@/lib/types";
+import styles from "@/components/menu/MenuExperience.module.css";
 
 export function MenuCategoryCard({ category }: { category: MenuCategory }) {
   return (
-    <div>
-      <h3 className="font-display text-xl text-ink">
-        {category.title}
-        {category.subtitle && <span className="ml-2 text-sm font-sans italic text-ink-soft">{category.subtitle}</span>}
-      </h3>
-      <ul className="mt-4 space-y-4">
+    <section className={styles.categoryCard} aria-labelledby={`${category.slug}-title`}>
+      <div className={styles.categoryHeading}>
+        <h3 id={`${category.slug}-title`}>
+          {category.title}
+          {category.subtitle && <span>{category.subtitle}</span>}
+        </h3>
+        <small>{String(category.items.length).padStart(2, "0")}</small>
+      </div>
+      <ul className={styles.dishList}>
         {category.items.map((item) => (
-          <li key={item.name + item.description} className="flex items-baseline gap-3">
-            <div className="min-w-0">
-              <span className="font-medium">{item.name}</span>
-              {item.note && <sup className="ml-0.5 text-ink-soft">({item.note})</sup>}
-              {item.description && <p className="text-sm text-ink-soft">{item.description}</p>}
+          <li key={item.name + item.description} className={styles.dishItem}>
+            <div className={styles.dishCopy}>
+              <span>{item.name}</span>
+              {item.note && <sup>({item.note})</sup>}
+              {item.description && <p>{item.description}</p>}
             </div>
-            <span className="flex-1 border-b border-dotted border-ink-soft/30 translate-y-[-4px]" aria-hidden />
-            <span className="shrink-0 font-medium tabular-nums text-ink">{item.price}</span>
+            <span className={styles.dishLeader} aria-hidden />
+            <strong>{item.price}</strong>
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }

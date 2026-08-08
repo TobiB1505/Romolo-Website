@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
-import { Reveal } from "@/components/motion/Reveal";
+import { MenuHero } from "@/components/menu/MenuHero";
 import { MenuExplorer } from "@/components/menu/MenuExplorer";
 import { MenuList } from "@/components/menu/MenuList";
 import { menuVisualGroups } from "@/lib/data/menuPresentation";
+import styles from "@/components/menu/MenuExperience.module.css";
 
 export const metadata: Metadata = {
   title: "Speisekarte",
@@ -13,30 +14,21 @@ export const metadata: Metadata = {
 
 export default function SpeisekartePage() {
   return (
-    <div>
-      {/*
-        Bewusst kein PageHero (bleibt für Galerie/Über uns/Kontakt/Legal
-        unverändert, Sprint 4). Kompakter, seitenspezifischer Einstieg statt
-        eines großen Fullscreen-Bereichs – der Fokus soll schnell auf der
-        Karte selbst liegen (Punkt 25/26).
-      */}
-      <div className="bg-forest py-12 text-cream lg:py-16">
-        <Container>
-          <Reveal>
-            <span className="eyebrow text-gold">La Nostra Cucina</span>
-            <h1 className="mt-3 font-display text-display-lg">Speisekarte</h1>
-            <p className="mt-3 max-w-measure text-cream/80">
-              Hier ist für jeden etwas dabei – entdecken Sie unsere italienische Vielfalt. Gerichte der
-              Restaurantkarte können Sie auch zum Abholen bestellen.
-            </p>
-          </Reveal>
-        </Container>
-      </div>
+    <div className={styles.menuPage}>
+      <MenuHero />
+      <div data-hero-sentinel aria-hidden="true" className="h-px w-full" />
 
-      {/* size="wide" statt der Standardbreite: Auf großen Desktops (≥1536px)
-          soll die Karte nicht als 1152px-Insel in der Bildschirmmitte
-          wirken (vgl. Sprint 2, Punkt 21). */}
-      <Container size="wide" className="py-12 lg:py-16">
+      <section className={styles.menuPrelude} aria-label="Hinweise zur Speisekarte">
+        <Container size="wide" className={styles.preludeInner}>
+          <p>Sieben Kapitel. Eine Küche, die Italien mit Miesbach verbindet.</p>
+          <div>
+            <span>Alle Gerichte auch zum Abholen</span>
+            <span>Preise in Euro</span>
+          </div>
+        </Container>
+      </section>
+
+      <Container size="wide" className={styles.explorerContainer}>
         <MenuExplorer groups={menuVisualGroups}>
           <MenuList />
         </MenuExplorer>

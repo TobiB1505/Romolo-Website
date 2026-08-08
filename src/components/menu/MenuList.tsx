@@ -1,6 +1,7 @@
 import { menuVisualGroups } from "@/lib/data/menuPresentation";
 import { menuFootnotes, menuGeneralNotes } from "@/lib/data/menu";
 import { MenuGroup } from "@/components/menu/MenuGroup";
+import styles from "./MenuExperience.module.css";
 
 /**
  * Rendert alle sieben visuellen Hauptgruppen in Reihenfolge, gefolgt von den
@@ -14,12 +15,15 @@ export function MenuList() {
         <MenuGroup key={group.id} group={group} isFirst={index === 0} />
       ))}
 
-      <div className="mt-4 space-y-2 border-t border-hairline pt-6 text-xs text-ink-soft">
+      <aside className={styles.menuNotes} aria-label="Hinweise und Zusatzstoffe">
+        <span className="eyebrow">Buono a sapersi</span>
+        <div>
         {menuGeneralNotes.map((note) => (
           <p key={note}>{note}</p>
         ))}
         <p>{menuFootnotes}</p>
-      </div>
+        </div>
+      </aside>
     </div>
   );
 }
