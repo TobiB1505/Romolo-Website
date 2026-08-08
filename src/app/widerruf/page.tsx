@@ -9,7 +9,7 @@ export default function WiderrufPage() {
   return (
     <div>
       <PageHero title="Widerrufsrecht" />
-      <Container className="max-w-2xl space-y-6 py-16 text-sm leading-relaxed text-ink-soft">
+      <Container size="prose" className="space-y-6 py-section-sm text-sm leading-relaxed text-ink-soft">
         <p className="rounded-md bg-terracotta/10 p-4 text-terracotta-dark">{legalContent.widerruf.note}</p>
         <p>
           Die über das Kontaktformular gestellte Reservierungsanfrage ist unverbindlich und stellt keinen

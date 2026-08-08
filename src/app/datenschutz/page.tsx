@@ -10,7 +10,7 @@ export default function DatenschutzPage() {
   return (
     <div>
       <PageHero title="Datenschutzerklärung" />
-      <Container className="max-w-2xl space-y-8 py-16 text-sm leading-relaxed text-ink-soft">
+      <Container size="prose" className="space-y-8 py-section-sm text-sm leading-relaxed text-ink-soft">
         <p className="rounded-md bg-terracotta/10 p-4 text-terracotta-dark">{legalContent.datenschutz.note}</p>
 
         <section>

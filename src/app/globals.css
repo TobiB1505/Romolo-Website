@@ -1,29 +1,79 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Farbpalette – bestehende Markenfarben, ergänzt um zwei Zwischentöne und
+   eine Hairline. Bestehende Werte bleiben unverändert, damit sich das
+   aktuelle Erscheinungsbild nicht verschiebt.
+--------------------------------------------------------------------------- */
 :root {
   --color-cream: #faf4e9;
+  --color-cream-warm: #f6eee0;
   --color-cream-dark: #f0e6d3;
   --color-ink: #2b2420;
+  --color-ink-deep: #211b17;
   --color-ink-soft: #574d44;
   --color-terracotta: #c1592a;
   --color-terracotta-dark: #a44a22;
   --color-forest: #37473a;
   --color-forest-dark: #263129;
   --color-gold: #c99a3e;
+  --color-hairline: rgb(43 36 32 / 0.12);
+  --color-hairline-light: rgb(250 244 233 / 0.16);
+
+  /* Höhe der fixierten Kopfzeile – steuert den Abstandshalter für <main>. */
+  --header-h: 5rem;
 }
 
 @theme inline {
   --color-cream: var(--color-cream);
+  --color-cream-warm: var(--color-cream-warm);
   --color-cream-dark: var(--color-cream-dark);
   --color-ink: var(--color-ink);
+  --color-ink-deep: var(--color-ink-deep);
   --color-ink-soft: var(--color-ink-soft);
   --color-terracotta: var(--color-terracotta);
   --color-terracotta-dark: var(--color-terracotta-dark);
   --color-forest: var(--color-forest);
   --color-forest-dark: var(--color-forest-dark);
   --color-gold: var(--color-gold);
+  --color-hairline: var(--color-hairline);
+  --color-hairline-light: var(--color-hairline-light);
   --font-display: var(--font-playfair);
   --font-sans: var(--font-inter);
+}
+
+@theme {
+  /* Editorial-Typografie. Werte per clamp(): mobil ~46/34/26px,
+     Desktop gedeckelt bei 112/72/48px. */
+  --text-display-xl: clamp(2.75rem, 1.5rem + 6vw, 7rem);
+  --text-display-xl--line-height: 1.02;
+  --text-display-xl--letter-spacing: -0.02em;
+
+  --text-display-lg: clamp(2rem, 1.25rem + 3.6vw, 4.5rem);
+  --text-display-lg--line-height: 1.06;
+  --text-display-lg--letter-spacing: -0.015em;
+
+  --text-display-md: clamp(1.625rem, 1.15rem + 2.1vw, 3rem);
+  --text-display-md--line-height: 1.15;
+  --text-display-md--letter-spacing: -0.01em;
+
+  /* Redaktionelle Textbreiten (erzeugt max-w-measure / max-w-measure-wide). */
+  --container-measure: 40rem;
+  --container-measure-wide: 46rem;
+
+  /* Radius bewusst klein: Bilder und Flächen bleiben nahezu eckig.
+     rounded-full bleibt für CTAs verfügbar. */
+  --radius-image: 0.1875rem;
+  --radius-panel: 0.25rem;
+
+  /* Sehr dezente Schatten – keine SaaS-Card-Optik. */
+  --shadow-soft: 0 1px 2px rgb(43 36 32 / 0.04), 0 12px 32px -20px rgb(43 36 32 / 0.18);
+  --shadow-header: 0 1px 0 rgb(43 36 32 / 0.05), 0 10px 30px -22px rgb(43 36 32 / 0.25);
+
+  /* Section-Rhythmus mit mehr Whitespace (erzeugt py-section, mt-section …). */
+  --spacing-section: clamp(4.5rem, 9vw, 9rem);
+  --spacing-section-sm: clamp(3rem, 6vw, 5.5rem);
+  --spacing-gutter: clamp(1.5rem, 4vw, 2.5rem);
 }
 
 body {
@@ -34,4 +84,141 @@ body {
 
 .font-display {
   font-family: var(--font-display), Georgia, serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Layout: Die Kopfzeile ist fixiert. <main> bekommt daher einen Abstandshalter
+   in Kopfzeilenhöhe – außer die Seite rendert einen Hero-Sentinel, dann läuft
+   der Inhalt bewusst unter die transparente Kopfzeile (ab Sprint 2).
+--------------------------------------------------------------------------- */
+main {
+  padding-top: var(--header-h);
+}
+
+body:has([data-hero-sentinel]) main {
+  padding-top: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Wiederkehrende Textstile
+--------------------------------------------------------------------------- */
+.eyebrow {
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------------
+   Button-Basis. Ersetzt die bisher mehrfach kopierten Klassenketten und
+   vereinheitlicht vor allem die Fokus-Zustände.
+--------------------------------------------------------------------------- */
+.btn-primary,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition-property: background-color, color, border-color, opacity;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-primary {
+  background-color: var(--color-terracotta);
+  color: var(--color-cream);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-terracotta-dark);
+}
+
+.btn-ghost {
+  border: 1px solid currentColor;
+  color: inherit;
+}
+
+.btn-primary:focus-visible,
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------------
+   Mobiles Overlay-Menü (<dialog>).
+   Ein- und Ausblendung laufen rein über CSS – `allow-discrete` erlaubt die
+   Animation von `display`/`overlay`, `@starting-style` liefert den Startwert.
+   Ältere Browser zeigen das Menü ohne Übergang, aber vollständig.
+--------------------------------------------------------------------------- */
+.site-menu {
+  opacity: 0;
+  transition:
+    opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    display 320ms allow-discrete,
+    overlay 320ms allow-discrete;
+}
+
+.site-menu[open] {
+  opacity: 1;
+}
+
+@starting-style {
+  .site-menu[open] {
+    opacity: 0;
+  }
+}
+
+.site-menu__item {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-menu[open] .site-menu__item {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--i, 0) * 55ms + 100ms);
+}
+
+@starting-style {
+  .site-menu[open] .site-menu__item {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Zugänglichkeit
+--------------------------------------------------------------------------- */
+
+/* Ohne aktives JavaScript dürfen von <Reveal> gesteuerte Inhalte niemals
+   unsichtbar bleiben. */
+@media (scripting: none) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    /* Ohne diese Zeile würden gestaffelte Elemente trotz sofortiger
+       Übergangsdauer weiterhin verzögert erscheinen. */
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -11,7 +11,7 @@ export default function ImpressumPage() {
   return (
     <div>
       <PageHero title="Impressum" />
-      <Container className="max-w-2xl space-y-6 py-16 text-sm leading-relaxed text-ink-soft">
+      <Container size="prose" className="space-y-6 py-section-sm text-sm leading-relaxed text-ink-soft">
         <div>
           <p className="font-medium text-ink">{impressum.company}</p>
           <p>{impressum.street}</p>

@@ -3,6 +3,7 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { MotionProvider } from "@/components/motion/MotionProvider";
 import { JsonLd } from "@/components/JsonLd";
 import { getRestaurantJsonLd } from "@/lib/jsonld";
 import { restaurant } from "@/lib/data/restaurant";
@@ -39,9 +40,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="de" className={`${playfair.variable} ${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-cream text-ink">
         <JsonLd data={getRestaurantJsonLd(siteUrl)} />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <MotionProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );
