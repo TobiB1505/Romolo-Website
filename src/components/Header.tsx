@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { ArrowUpRight, Menu, X, Phone } from "lucide-react";
 import clsx from "clsx";
 import { Container } from "./Container";
 import { restaurant } from "@/lib/data/restaurant";
+import styles from "./Header.module.css";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -197,9 +198,9 @@ export function Header() {
             aria-label="Menü öffnen"
             aria-expanded={menuOpen}
             aria-controls={MENU_ID}
-            className="flex size-11 items-center justify-center rounded-full text-current transition-colors hover:text-terracotta focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta"
+            className={styles.menuTrigger}
           >
-            <Menu size={24} aria-hidden />
+            <Menu size={22} aria-hidden />
           </button>
         </div>
       </Container>
@@ -209,64 +210,70 @@ export function Header() {
       <dialog
         ref={dialogRef}
         id={MENU_ID}
-        className="site-menu m-0 h-[100dvh] max-h-none w-screen max-w-none bg-forest-dark p-0 text-cream backdrop:bg-ink-deep/60"
+        className={clsx("site-menu", styles.dialog)}
       >
-        <div className="flex h-full flex-col overflow-y-auto px-6 pb-10 pt-6">
-          <div className="flex items-center justify-between">
-            <span className="font-display text-lg">Ristorante da Romolo</span>
+        <div className={styles.menuShell}>
+          <span className={styles.monogram} aria-hidden>R</span>
+
+          <div className={styles.menuTop}>
+            <Link href="/" onClick={closeMenu} className={styles.menuBrand}>Ristorante da Romolo</Link>
             <button
               type="button"
               onClick={closeMenu}
               aria-label="Menü schließen"
-              className="flex size-11 items-center justify-center rounded-full transition-colors hover:text-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+              className={styles.closeButton}
             >
-              <X size={24} aria-hidden />
+              <span>Schließen</span>
+              <X size={19} aria-hidden />
             </button>
           </div>
 
-          <nav aria-label="Hauptnavigation mobil" className="mt-10">
-            <ul className="flex flex-col">
-              {navItems.map((item, index) => (
-                <li key={item.href} className="site-menu__item" style={{ "--i": index } as CSSProperties}>
-                  <Link
-                    href={item.href}
-                    aria-current={pathname === item.href ? "page" : undefined}
-                    className={clsx(
-                      "block border-b border-hairline-light py-4 font-display text-3xl transition-colors",
-                      pathname === item.href ? "text-gold" : "text-cream hover:text-gold"
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <div className={styles.menuGrid}>
+            <nav aria-label="Hauptnavigation mobil" className={styles.menuNav}>
+              <p className={styles.menuEyebrow}>Navigation</p>
+              <ol className={styles.menuList}>
+                {navItems.map((item, index) => {
+                  const active = pathname === item.href;
+                  return (
+                    <li key={item.href} className="site-menu__item" style={{ "--i": index } as CSSProperties}>
+                      <Link
+                        href={item.href}
+                        onClick={closeMenu}
+                        aria-current={active ? "page" : undefined}
+                        className={clsx(styles.menuLink, active && styles.menuLinkActive)}
+                      >
+                        <span className={styles.menuNumber}>0{index + 1}</span>
+                        <span>{item.label}</span>
+                        <ArrowUpRight className={styles.menuArrow} size={20} aria-hidden />
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ol>
+            </nav>
 
-          <div className="site-menu__item mt-8" style={{ "--i": navItems.length } as CSSProperties}>
-            <a href={restaurant.phoneHref} className="btn-primary w-full px-6 py-4 text-base">
-              <Phone size={18} aria-hidden /> {restaurant.phone}
-            </a>
+            <aside
+              className={clsx("site-menu__item", styles.menuAside)}
+              style={{ "--i": navItems.length } as CSSProperties}
+            >
+              <p className={styles.menuEyebrow}>Benvenuti</p>
+              <h2>Ihr Tisch<br />bei Romolo.</h2>
+              <address>
+                {restaurant.street}<br />
+                {restaurant.zip} {restaurant.city}
+              </address>
+              <Link href="/kontakt" onClick={closeMenu} className={styles.reserveLink}>
+                Tisch reservieren <ArrowUpRight size={17} aria-hidden />
+              </Link>
+              <a href={restaurant.phoneHref} className={styles.callLink}>
+                <Phone size={15} aria-hidden /> {restaurant.phone}
+              </a>
+            </aside>
           </div>
 
-          <div
-            className="site-menu__item mt-auto pt-10 text-sm text-cream/70"
-            style={{ "--i": navItems.length + 1 } as CSSProperties}
-          >
-            <p className="eyebrow mb-3 text-gold">Öffnungszeiten</p>
-            <ul className="space-y-1">
-              {restaurant.hours.map((entry) => (
-                <li key={entry.day} className="flex justify-between gap-4">
-                  <span>{entry.day}</span>
-                  <span className="text-right text-cream/60">{entry.hours}</span>
-                </li>
-              ))}
-            </ul>
-            <address className="mt-5 not-italic">
-              {restaurant.street}
-              <br />
-              {restaurant.zip} {restaurant.city}
-            </address>
+          <div className={styles.menuFoot}>
+            <span>Italianità am Stadtplatz</span>
+            <span>Miesbach · Baviera</span>
           </div>
         </div>
       </dialog>
