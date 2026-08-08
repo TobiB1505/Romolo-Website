@@ -1,0 +1,178 @@
+.footer {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-forest-dark);
+  color: var(--color-cream);
+}
+
+.footer::before {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 82% 4%, rgb(201 154 62 / 0.12), transparent 30%);
+  content: "";
+  pointer-events: none;
+}
+
+.cta {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2rem;
+  align-items: end;
+  padding-bottom: clamp(4rem, 8vw, 7.5rem);
+  padding-top: clamp(4.5rem, 9vw, 8rem);
+  border-bottom: 1px solid rgb(250 244 233 / 0.14);
+}
+
+.eyebrow,
+.label {
+  color: var(--color-gold);
+  font-size: 0.61rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  grid-column: span 3;
+  align-self: start;
+  padding-top: 0.7rem;
+}
+
+.ctaTitle {
+  grid-column: span 7;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(3rem, 6.4vw, 6.5rem);
+  font-weight: 400;
+  line-height: 0.93;
+  letter-spacing: -0.04em;
+}
+
+.ctaTitle span {
+  display: block;
+  color: rgb(250 244 233 / 0.55);
+  font-style: italic;
+}
+
+.ctaLink {
+  grid-column: span 2;
+  display: inline-flex;
+  min-height: 3.35rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  border: 1px solid rgb(250 244 233 / 0.32);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  transition: gap 300ms ease, background-color 300ms ease, color 300ms ease;
+}
+
+.ctaLink:hover {
+  gap: 1.1rem;
+  background: var(--color-cream);
+  color: var(--color-forest-dark);
+}
+
+.main {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 3rem 2rem;
+  padding-bottom: clamp(4rem, 7vw, 6rem);
+  padding-top: clamp(4rem, 7vw, 6rem);
+}
+
+.brand { grid-column: span 4; }
+.navigation { grid-column: span 2; }
+.contact { grid-column: span 3; }
+.openingHours { grid-column: span 3; }
+
+.brandName {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  letter-spacing: -0.025em;
+  transition: color 200ms ease;
+}
+
+.brandName:hover { color: var(--color-gold); }
+.brand > p { max-width: 18rem; margin-top: 1rem; color: rgb(250 244 233 / 0.58); font-size: 0.86rem; line-height: 1.7; }
+.brand > span { display: block; margin-top: 2rem; color: rgb(250 244 233 / 0.32); font-size: 0.55rem; letter-spacing: 0.17em; text-transform: uppercase; }
+
+.navigation ul,
+.contact address,
+.openingHours ul { margin-top: 1.5rem; }
+
+.navigation li + li { margin-top: 0.65rem; }
+.navigation a { color: rgb(250 244 233 / 0.66); font-family: var(--font-display), Georgia, serif; font-size: 1.1rem; transition: color 200ms ease, padding-left 200ms ease; }
+.navigation a:hover { padding-left: 0.25rem; color: var(--color-cream); }
+
+.contact address { font-style: normal; }
+.contact address p { display: grid; grid-template-columns: 1.15rem 1fr; gap: 0.65rem; color: rgb(250 244 233 / 0.6); font-size: 0.77rem; line-height: 1.65; }
+.contact address p + p { margin-top: 0.9rem; }
+.contact svg { margin-top: 0.2rem; color: var(--color-gold); }
+.contact a { overflow-wrap: anywhere; transition: color 200ms ease; }
+.contact a:hover { color: var(--color-cream); }
+
+.openingHours .label { display: flex; align-items: center; gap: 0.45rem; }
+.openingHours li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.36rem 0; color: rgb(250 244 233 / 0.6); font-size: 0.7rem; line-height: 1.45; }
+.openingHours li span:last-child { color: rgb(250 244 233 / 0.38); text-align: right; }
+
+.wordmark {
+  position: relative;
+  padding-top: 0.1em;
+  border-top: 1px solid rgb(250 244 233 / 0.14);
+  color: rgb(250 244 233 / 0.9);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(5.5rem, 15.5vw, 13.5rem);
+  font-style: italic;
+  line-height: 0.83;
+  letter-spacing: -0.065em;
+  white-space: nowrap;
+}
+
+.bottomBar {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem 0;
+  color: rgb(250 244 233 / 0.38);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.bottomBar > p:nth-child(2) { text-align: center; }
+.bottomBar nav { display: flex; justify-content: flex-end; gap: 1.25rem; }
+.bottomBar a { transition: color 200ms ease; }
+.bottomBar a:hover { color: var(--color-cream); }
+
+@media (max-width: 63.999rem) {
+  .eyebrow { grid-column: span 12; }
+  .ctaTitle { grid-column: span 9; }
+  .ctaLink { grid-column: span 3; }
+  .brand { grid-column: span 6; }
+  .navigation { grid-column: span 2; }
+  .contact { grid-column: span 4; }
+  .openingHours { grid-column: 7 / span 6; }
+}
+
+@media (max-width: 47.999rem) {
+  .cta { gap: 2rem; }
+  .ctaTitle,
+  .ctaLink { grid-column: span 12; }
+  .ctaLink { width: fit-content; padding: 0 1.5rem; }
+  .brand,
+  .navigation,
+  .contact,
+  .openingHours { grid-column: span 12; }
+  .navigation,
+  .contact,
+  .openingHours { padding-top: 2rem; border-top: 1px solid rgb(250 244 233 / 0.1); }
+  .wordmark { font-size: 24vw; }
+  .bottomBar { grid-template-columns: 1fr; gap: 0.8rem; }
+  .bottomBar > p:nth-child(2) { display: none; }
+  .bottomBar nav { flex-wrap: wrap; justify-content: flex-start; }
+}
