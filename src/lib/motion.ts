@@ -61,6 +61,26 @@ export const viewportDefaults = {
  */
 export const reducedDuration = 0.25;
 
+/**
+ * Zeitversatz der Hero-Entrance-Choreografie, in Sekunden ab Seitenaufruf.
+ * Jeder Schritt nutzt `easing.entrance`; nur die Startzeitpunkte unterscheiden
+ * sich, damit die Elemente nacheinander statt gleichzeitig erscheinen.
+ */
+export const heroSequence = {
+  eyebrow: 0.45,
+  headline: 0.7,
+  brandLine: 0.95,
+  subline: 1.15,
+  cta: 1.3,
+  scrollCue: 1.6,
+} as const;
+
+/** Vergrößerungsfaktor, aus dem das Hero-Bild beim Laden herauszoomt. */
+export const heroImageScale = 1.055;
+
+/** Skalierung, aus der große Story-Bilder beim Erscheinen einlaufen. */
+export const imageRevealScale = 1.04;
+
 export type RevealDirection = "up" | "down" | "left" | "right" | "none";
 
 /**

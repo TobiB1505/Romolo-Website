@@ -23,14 +23,34 @@ export const restaurant: RestaurantSettings = {
   lng: 11.8331,
 };
 
+/**
+ * Ursprünglich ein zusammenhängender Fließtext (Jimdo-Übernahme, siehe
+ * Git-Historie vor Sprint 2). Für die kapitelartige Homepage redaktionell auf
+ * die sechs Story-Sections verteilt – keine Aussage wurde dabei entfernt oder
+ * neu erfunden, nur gekürzt und umsortiert.
+ */
 export const homeContent = {
-  heroTitle: "Benvenuti da Ristorante da Romolo",
-  heroText:
-    "Italienische Küche. Eine Karte, die mit den Jahreszeiten geht. Klassische Lieblingsgerichte mit Herz zubereitet. Und vor allem: viel Liebe für gutes, handgemachtes Essen. Herzlich willkommen!",
+  heroEyebrow: "Ristorante",
+  heroHeadline: "Benvenuti",
+  heroBrandLine: "da Romolo",
+  heroSubline: "Italienische Küche, die mit den Jahreszeiten geht.",
+
+  philosophyEyebrow: "La Nostra Filosofia",
+  philosophyStatement: "Wir machen das Restaurant, in dem wir selber gern essen würden.",
+  philosophySupport:
+    "Klassische Lieblingsgerichte mit Herz zubereitet – vor allem aber viel Liebe für gutes, handgemachtes Essen.",
+
+  weeklyMenuEyebrow: "Mittagstisch",
   weeklyMenuNote:
     "Wir bieten wöchentlich wechselnde Mittagsmenüs an! Warmes Essen, warme Herzen – so einfach ist das.",
-  introText:
-    "Wir haben dafür einen einladenden Ort geschaffen, an dem Freunde und Familie zusammenkommen und sich wohlfühlen können. Unser Konzept ist simpel: Wir machen das Restaurant, in dem wir selber gern essen würden. Kommen Sie vorbei! Erfreuen Sie sich an Ihren italienischen Lieblingsgerichten und unserer Gastfreundschaft. Wir freuen uns auf Sie.",
+
+  storyEyebrow: "La Storia",
+  storyHeadline: "Ein Ort zum Ankommen",
+  storyText:
+    "Wir haben einen einladenden Ort geschaffen, an dem Freunde und Familie zusammenkommen und sich wohlfühlen können. Kommen Sie vorbei – erfreuen Sie sich an Ihren italienischen Lieblingsgerichten und unserer Gastfreundschaft. Wir freuen uns auf Sie.",
+
+  atmosphereEyebrow: "Atmosfera",
+  atmosphereHeadline: "Una sera da Romolo",
 };
 
 export const aboutContent = {

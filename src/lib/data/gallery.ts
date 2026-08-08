@@ -21,3 +21,16 @@ export const heroImage: GalleryImage = {
   width: 1198,
   height: 1360,
 };
+
+/**
+ * Sucht ein Bild anhand eines Dateinamens-Fragments (z. B. "interior-4").
+ * Wirft, statt still `undefined` zurückzugeben – ein Tippfehler soll beim
+ * Build aussagekräftig auffallen, nicht als leeres Bild im Live-Betrieb.
+ */
+export function findGalleryImage(fragment: string): GalleryImage {
+  const image = galleryImages.find((img) => img.src.includes(fragment));
+  if (!image) {
+    throw new Error(`Kein Galerie-Bild gefunden, das "${fragment}" enthält.`);
+  }
+  return image;
+}

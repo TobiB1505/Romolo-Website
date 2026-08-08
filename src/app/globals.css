@@ -196,6 +196,20 @@ body:has([data-hero-sentinel]) main {
 }
 
 /* ---------------------------------------------------------------------------
+   Native horizontale Scroll-Strecken (z. B. Atmosfera-Galerie).
+   Kein JS-Carousel – nur der Browser-Scrollbalken wird optisch ausgeblendet,
+   die Tastatur- und Trackpad-Bedienung bleibt vollständig nativ erhalten.
+--------------------------------------------------------------------------- */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
    Zugänglichkeit
 --------------------------------------------------------------------------- */
 

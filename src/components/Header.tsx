@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import clsx from "clsx";
 import { Container } from "./Container";
@@ -17,6 +17,15 @@ const navItems = [
 ];
 
 const MENU_ID = "mobile-navigation";
+
+/**
+ * `useLayoutEffect` auf dem Server auszuführen erzeugt eine React-Warnung
+ * ("useLayoutEffect does nothing on the server"). Da Client Components in
+ * Next.js für das initiale HTML dennoch serverseitig gerendert werden, weicht
+ * dieser Hook dort auf `useEffect` aus und verhält sich im Browser wie
+ * `useLayoutEffect` (synchron vor dem nächsten Paint).
+ */
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 /**
  * Ab wie vielen Pixeln unterhalb der Oberkante der Hero-Sentinel als verlassen
@@ -43,12 +52,28 @@ export function Header() {
    */
   const [hero, setHero] = useState<{ path: string; past: boolean } | null>(null);
 
-  useEffect(() => {
+  /**
+   * `useLayoutEffect` statt `useEffect`: Bei einer Client-seitigen Navigation
+   * ist der Header dieselbe Komponenteninstanz (das Layout bleibt gemountet),
+   * nur `pathname` ändert sich. `IntersectionObserver` meldet seinen ersten
+   * Zustand jedoch erst asynchron (typischerweise erst nächster Frame) – ohne
+   * synchrone Vorabmessung liefe die Seite für einen Frame im zuletzt
+   * bekannten Zustand, was z. B. bei /kontakt → / kurz eine falsche
+   * (dunkle-auf-dunkel oder helle-auf-hell) Navigation zeigen könnte.
+   *
+   * Auf dem Server läuft `useLayoutEffect` nicht – siehe
+   * `useIsomorphicLayoutEffect` unten, das dafür auf `useEffect` ausweicht,
+   * um die bekannte React-SSR-Warnung zu vermeiden.
+   */
+  useIsomorphicLayoutEffect(() => {
     const sentinel = document.querySelector("[data-hero-sentinel]");
     if (!sentinel) return;
 
-    // Der Observer meldet sich unmittelbar nach `observe()` mit dem
-    // Ausgangszustand – der Zustand entsteht also ausschließlich im Callback.
+    // Synchrone Erstmessung: unmittelbar korrekt, ohne auf den ersten
+    // (asynchronen) IntersectionObserver-Callback warten zu müssen.
+    const rect = sentinel.getBoundingClientRect();
+    setHero({ path: pathname, past: rect.bottom <= HERO_EXIT_OFFSET });
+
     const observer = new IntersectionObserver(
       ([entry]) => setHero({ path: pathname, past: !entry.isIntersecting }),
       { rootMargin: `-${HERO_EXIT_OFFSET}px 0px 0px 0px` }
