@@ -1,46 +1,65 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/motion/Reveal";
 import { homeContent } from "@/lib/data/restaurant";
+import styles from "./HomeEditorial.module.css";
+
+const ribbonWords = ["Benvenuti", "Cucina italiana", "Famiglia", "Miesbach", "Dal cuore"];
 
 export function PhilosophySection() {
   return (
-    <section className="bg-cream py-section">
-      <Container size="wide">
-        <div className="grid gap-6 lg:grid-cols-12">
-          <div className="lg:col-span-7 lg:col-start-2">
-            <Reveal>
-              <div className="flex items-baseline gap-3">
-                <span aria-hidden className="text-xs text-ink-soft/50">
-                  02
-                </span>
-                <span className="eyebrow text-terracotta">{homeContent.philosophyEyebrow}</span>
-              </div>
-            </Reveal>
+    <section className={`${styles.philosophy} overflow-hidden bg-cream`}>
+      <div className={styles.arrivalRibbon} aria-hidden>
+        <div className={styles.arrivalTrack}>
+          {[...ribbonWords, ...ribbonWords].map((word, index) => (
+            <span key={`${word}-${index}`}>
+              {word}<i>✦</i>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <Container size="wide" className="relative py-section">
+        <span className={styles.manifestoWatermark} aria-hidden>Fatto a mano</span>
+
+        <div className="relative grid gap-10 lg:grid-cols-12 lg:gap-8">
+          <Reveal className="lg:col-span-2">
+            <div className={styles.sectionIndex}>
+              <span>02</span>
+              <i />
+              <span>{homeContent.philosophyEyebrow}</span>
+            </div>
+          </Reveal>
+
+          <div className="lg:col-span-8">
             <Reveal delay={0.08}>
-              <p className="mt-6 font-display text-display-lg italic leading-[1.1] text-ink">
-                {homeContent.philosophyStatement}
-              </p>
+              <p className={styles.manifesto}>{homeContent.philosophyStatement}</p>
             </Reveal>
             <Reveal delay={0.16}>
-              <p className="mt-8 max-w-measure text-lg leading-relaxed text-ink-soft">
+              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-soft lg:ml-auto lg:max-w-xl">
                 {homeContent.philosophySupport}
               </p>
             </Reveal>
           </div>
+
+          <Reveal delay={0.18} className="hidden lg:col-span-2 lg:block">
+            <div className={styles.qualityMark} aria-hidden>
+              <span>Da Romolo</span>
+              <strong>R</strong>
+              <small>Miesbach · Italia</small>
+            </div>
+          </Reveal>
         </div>
 
-        <Reveal delay={0.1}>
-          <div className="mt-16 flex flex-col gap-4 border-t border-hairline pt-8 sm:flex-row sm:items-baseline sm:justify-between lg:col-span-10 lg:col-start-2 lg:mt-20">
+        <Reveal delay={0.12}>
+          <div className={styles.weeklyPanel}>
             <div>
               <span className="eyebrow text-gold">{homeContent.weeklyMenuEyebrow}</span>
-              <p className="mt-2 max-w-md text-ink-soft">{homeContent.weeklyMenuNote}</p>
+              <p className="mt-3 max-w-xl text-cream/68">{homeContent.weeklyMenuNote}</p>
             </div>
-            <Link
-              href="/speisekarte"
-              className="inline-flex min-h-11 items-center whitespace-nowrap text-sm font-medium text-terracotta transition-colors hover:text-terracotta-dark"
-            >
-              Zur Speisekarte →
+            <Link href="/speisekarte" className={styles.lightArrowLink}>
+              Aktuelle Karte <ArrowRight size={16} aria-hidden />
             </Link>
           </div>
         </Reveal>

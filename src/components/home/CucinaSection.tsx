@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/motion/Reveal";
 import { ImageReveal } from "@/components/motion/ImageReveal";
@@ -7,12 +8,8 @@ import { menuGroups } from "@/lib/data/menu";
 import { aboutContent } from "@/lib/data/restaurant";
 import { findGalleryImage } from "@/lib/data/gallery";
 import type { MenuItem } from "@/lib/types";
+import styles from "./HomeEditorial.module.css";
 
-/**
- * Kuratierte Auswahl für den Homepage-Teaser. Namen müssen exakt zu
- * `src/lib/data/menu.ts` passen – Preise werden bewusst nicht hier gepflegt,
- * sondern zur Laufzeit aus den echten Menü-Daten gelesen.
- */
 const signatureDishSelection: { categorySlug: string; name: string }[] = [
   { categorySlug: "carne-di-vitello", name: "Saltimbocca alla Romana" },
   { categorySlug: "pizza", name: "Pizza Buffalina" },
@@ -23,78 +20,75 @@ const signatureDishSelection: { categorySlug: string; name: string }[] = [
 function getSignatureDishes(): MenuItem[] {
   const categories = menuGroups.flatMap((group) => group.categories);
   return signatureDishSelection
-    .map(({ categorySlug, name }) => categories.find((c) => c.slug === categorySlug)?.items.find((item) => item.name === name))
+    .map(({ categorySlug, name }) => categories.find((category) => category.slug === categorySlug)?.items.find((item) => item.name === name))
     .filter((item): item is MenuItem => Boolean(item));
 }
 
-const primaryImage = findGalleryImage("interior-6");
-const secondaryImage = findGalleryImage("interior-1");
+const roomImage = findGalleryImage("interior-6");
+const detailImage = findGalleryImage("interior-1");
+const pastaImage = {
+  src: "/images/gallery/hero-1.jpg",
+  alt: "Spaghetti auf einer Gabel mit Tomate und Basilikum",
+};
 
 export function CucinaSection() {
   const dishes = getSignatureDishes();
 
   return (
-    <section className="overflow-hidden bg-cream-warm py-section">
+    <section className={`${styles.cucina} overflow-hidden bg-forest-dark py-section text-cream`}>
       <Container size="wide">
-        <div className="grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-10">
+        <div className="grid gap-16 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
-            <Reveal>
-              <div className="flex items-baseline gap-3">
-                <span aria-hidden className="text-xs text-ink-soft/50">
-                  03
-                </span>
-                <span className="eyebrow text-terracotta">Cucina</span>
-              </div>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h2 className="mt-4 font-display text-display-lg text-ink">La Cucina</h2>
-            </Reveal>
-            <Reveal delay={0.14}>
-              <p className="mt-6 max-w-measure leading-relaxed text-ink-soft">{aboutContent.paragraphs[1]}</p>
-            </Reveal>
-
-            {dishes.length > 0 && (
-              <Reveal delay={0.2}>
-                <ul className="mt-10 divide-y divide-hairline border-t border-hairline">
-                  {dishes.map((dish) => (
-                    <li key={dish.name} className="flex items-baseline gap-4 py-4">
-                      <span className="font-medium text-ink">{dish.name}</span>
-                      <span aria-hidden className="-translate-y-1 flex-1 border-b border-dotted border-ink-soft/30" />
-                      <span className="shrink-0 font-medium text-terracotta">{dish.price}</span>
-                    </li>
-                  ))}
-                </ul>
+            <div className="lg:sticky lg:top-28">
+              <Reveal>
+                <div className={styles.sectionIndexLight}>
+                  <span>03</span><i /><span>Cucina</span>
+                </div>
               </Reveal>
-            )}
+              <Reveal delay={0.08}>
+                <h2 className="mt-8 font-display text-[clamp(3.7rem,7.5vw,7rem)] leading-[0.88] tracking-[-0.04em]">
+                  La vera<br /><em className="font-normal text-gold">cucina.</em>
+                </h2>
+              </Reveal>
+              <Reveal delay={0.14}>
+                <p className="mt-8 max-w-md leading-relaxed text-cream/65">{aboutContent.paragraphs[1]}</p>
+              </Reveal>
 
-            <Reveal delay={0.26}>
-              <Link href="/speisekarte" className="btn-primary mt-10 px-7 py-3">
-                Speisekarte entdecken
-              </Link>
-            </Reveal>
+              {dishes.length > 0 && (
+                <Reveal delay={0.2}>
+                  <ol className={styles.signatureList}>
+                    {dishes.map((dish, index) => (
+                      <li key={dish.name}>
+                        <span className={styles.dishNumber}>{String(index + 1).padStart(2, "0")}</span>
+                        <span>{dish.name}</span>
+                        <i aria-hidden />
+                        <strong>{dish.price}</strong>
+                      </li>
+                    ))}
+                  </ol>
+                </Reveal>
+              )}
+
+              <Reveal delay={0.25}>
+                <Link href="/speisekarte" className={`${styles.lightArrowLink} mt-9`}>
+                  Ganze Speisekarte <ArrowRight size={16} aria-hidden />
+                </Link>
+              </Reveal>
+            </div>
           </div>
 
-          <div className="lg:col-span-7">
-            <div className="grid grid-cols-5 gap-4 sm:gap-6">
-              <ImageReveal className="relative col-span-3 aspect-[4/5] overflow-hidden rounded-image">
-                <Image
-                  src={primaryImage.src}
-                  alt={primaryImage.alt}
-                  fill
-                  sizes="(min-width: 1024px) 38vw, 60vw"
-                  className="object-cover"
-                />
-              </ImageReveal>
-              <ImageReveal delay={0.1} className="relative col-span-2 mt-12 aspect-[3/4] overflow-hidden rounded-image">
-                <Image
-                  src={secondaryImage.src}
-                  alt={secondaryImage.alt}
-                  fill
-                  sizes="(min-width: 1024px) 24vw, 38vw"
-                  className="object-cover"
-                />
-              </ImageReveal>
-            </div>
+          <div className={`${styles.cucinaGallery} lg:col-span-7`}>
+            <ImageReveal className={`${styles.cucinaImageMain} relative overflow-hidden`}>
+              <Image src={pastaImage.src} alt={pastaImage.alt} fill sizes="(min-width: 1024px) 46vw, 100vw" className={styles.editorialImage} />
+              <span className={styles.imageCaption}>Il dettaglio</span>
+            </ImageReveal>
+            <ImageReveal delay={0.12} className={`${styles.cucinaImageRoom} relative overflow-hidden`}>
+              <Image src={roomImage.src} alt={roomImage.alt} fill sizes="(min-width: 1024px) 28vw, 56vw" className={styles.editorialImage} />
+              <span className={styles.imageCaption}>La sala</span>
+            </ImageReveal>
+            <ImageReveal delay={0.18} className={`${styles.cucinaImageDetail} relative overflow-hidden`}>
+              <Image src={detailImage.src} alt={detailImage.alt} fill sizes="(min-width: 1024px) 19vw, 36vw" className={styles.editorialImage} />
+            </ImageReveal>
           </div>
         </div>
       </Container>
