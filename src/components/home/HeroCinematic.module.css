@@ -1,5 +1,9 @@
 .hero {
-  perspective: 1800px;
+  outline: none;
+}
+
+.heroLocked {
+  z-index: 60;
 }
 
 .heroImage { object-fit: cover; object-position: center; }
@@ -141,10 +145,13 @@
 }
 
 .doorStage {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 30;
+  z-index: 100;
   display: flex;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 100svh;
   perspective: 1800px;
   pointer-events: auto;
   background: transparent;
@@ -452,6 +459,10 @@
 @media (scripting: none) {
   .doorStage {
     display: none;
+  }
+
+  .heroLocked {
+    z-index: auto;
   }
 }
 

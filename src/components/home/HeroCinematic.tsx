@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { m, useReducedMotion } from "motion/react";
 import { Container } from "@/components/Container";
@@ -18,6 +18,11 @@ const DOOR_DURATION_MS = 1650;
 
 export function HeroCinematic() {
   const prefersReducedMotion = useReducedMotion();
+  const heroRef = useRef<HTMLElement>(null);
+  const enterButtonRef = useRef<HTMLButtonElement>(null);
+  const skipButtonRef = useRef<HTMLButtonElement>(null);
+  const touchStartYRef = useRef<number | null>(null);
+  const openedByInteractionRef = useRef(false);
   const [entranceState, setEntranceState] = useState<EntranceState>("closed");
   const [skipEntranceAnimation, setSkipEntranceAnimation] = useState(false);
 
@@ -27,6 +32,8 @@ export function HeroCinematic() {
 
   const enterRestaurant = useCallback(() => {
     if (entranceState !== "closed") return;
+
+    openedByInteractionRef.current = true;
 
     try {
       window.sessionStorage.setItem(ENTRANCE_STORAGE_KEY, "true");
@@ -51,7 +58,15 @@ export function HeroCinematic() {
       // Siehe Kommentar in enterRestaurant().
     }
 
-    if (!hasSeenEntrance && !prefersReducedMotion) return;
+    if (!hasSeenEntrance) {
+      // Auch direkte Hash-Aufrufe beginnen beim ersten Besuch an der Tür.
+      // Nach dem Öffnen startet die Inszenierung dadurch immer im Hero.
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      const frame = window.requestAnimationFrame(() => {
+        enterButtonRef.current?.focus({ preventScroll: true });
+      });
+      return () => window.cancelAnimationFrame(frame);
+    }
 
     // Nach dem ersten Paint umschalten: Server- und Hydration-Markup bleiben
     // identisch, trotzdem erscheint die Tür bei Folgebesuchen nicht erneut.
@@ -63,6 +78,15 @@ export function HeroCinematic() {
   }, [prefersReducedMotion]);
 
   useEffect(() => {
+    if (entranceState !== "open" || !openedByInteractionRef.current) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      heroRef.current?.focus({ preventScroll: true });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [entranceState]);
+
+  useEffect(() => {
     if (entranceState !== "opening") return;
     const timer = window.setTimeout(() => setEntranceState("open"), DOOR_DURATION_MS);
     return () => window.clearTimeout(timer);
@@ -72,7 +96,11 @@ export function HeroCinematic() {
     if (entranceState === "open") return;
 
     const previousOverflow = document.body.style.overflow;
+    const previousOverscrollBehavior = document.body.style.overscrollBehavior;
+    const previousTouchAction = document.body.style.touchAction;
     document.body.style.overflow = "hidden";
+    document.body.style.overscrollBehavior = "none";
+    document.body.style.touchAction = "none";
 
     const handleWheel = (event: WheelEvent) => {
       if (event.deltaY <= 8) return;
@@ -81,24 +109,69 @@ export function HeroCinematic() {
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Tab") {
+        const focusableElements = [enterButtonRef.current, skipButtonRef.current].filter(
+          (element): element is HTMLButtonElement => element !== null
+        );
+        const first = focusableElements[0];
+        const last = focusableElements.at(-1);
+
+        if (!first || !last) return;
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        } else if (!focusableElements.includes(document.activeElement as HTMLButtonElement)) {
+          event.preventDefault();
+          first.focus();
+        }
+        return;
+      }
+
       if (!["ArrowDown", "PageDown", "Enter", " ", "Escape"].includes(event.key)) return;
       event.preventDefault();
       enterRestaurant();
     };
 
+    const handleTouchStart = (event: TouchEvent) => {
+      touchStartYRef.current = event.touches[0]?.clientY ?? null;
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      const startY = touchStartYRef.current;
+      const currentY = event.touches[0]?.clientY;
+      if (startY === null || currentY === undefined || startY - currentY <= 12) return;
+
+      event.preventDefault();
+      enterRestaurant();
+      touchStartYRef.current = null;
+    };
+
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      document.body.style.overscrollBehavior = previousOverscrollBehavior;
+      document.body.style.touchAction = previousTouchAction;
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [entranceState, enterRestaurant]);
 
   return (
     <>
-      <section className={`${styles.hero} relative isolate flex min-h-[100svh] items-end overflow-hidden bg-ink-deep text-cream`}>
+      <section
+        ref={heroRef}
+        tabIndex={-1}
+        className={`${styles.hero} ${!isOpen ? styles.heroLocked : ""} relative isolate flex min-h-[100svh] items-end overflow-hidden bg-ink-deep text-cream`}
+      >
         <div className="absolute inset-0">
           <m.div
             className="absolute inset-0"
@@ -192,8 +265,12 @@ export function HeroCinematic() {
 
         <div
           data-door-intro
+          data-entrance-state={entranceState}
           className={`${styles.doorStage} ${isRevealed ? styles.doorStageOpen : ""}`}
           aria-hidden={isRevealed}
+          aria-label="Eingang zum Ristorante da Romolo"
+          aria-modal={!isRevealed ? "true" : undefined}
+          role="dialog"
           style={{ transitionDelay: skipEntranceAnimation ? "0s" : undefined }}
         >
           <m.div
@@ -241,14 +318,14 @@ export function HeroCinematic() {
               <strong>da Romolo</strong>
               <small>Cucina italiana</small>
             </div>
-            <button type="button" onClick={enterRestaurant} className={styles.enterButton}>
+            <button ref={enterButtonRef} type="button" onClick={enterRestaurant} className={styles.enterButton}>
               <span>Eintreten</span>
               <ArrowRight size={16} aria-hidden />
             </button>
             <p className={styles.gestureHint}>Klicken oder scrollen, um die Tür zu öffnen</p>
           </m.div>
 
-          <button type="button" onClick={enterRestaurant} className={styles.skipButton}>
+          <button ref={skipButtonRef} type="button" onClick={enterRestaurant} className={styles.skipButton}>
             Intro überspringen
           </button>
         </div>
