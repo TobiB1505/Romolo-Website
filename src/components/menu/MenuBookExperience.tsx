@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import {
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -46,6 +47,7 @@ function getServerMobileSnapshot() {
 
 export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const chapterRailRef = useRef<HTMLElement>(null);
   const activeTurnRef = useRef(0);
   const prefersReducedMotion = useReducedMotion();
   const isMobile = useSyncExternalStore(subscribeMobile, getMobileSnapshot, getServerMobileSnapshot);
@@ -80,6 +82,21 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
   });
 
   const activePage = pages[activePageIndex] ?? pages[0];
+  const activeGroupId = activePage?.groupId;
+
+  useEffect(() => {
+    const rail = chapterRailRef.current;
+    if (!isMobile || !rail || !activeGroupId) return;
+
+    const activeButton = rail.querySelector<HTMLButtonElement>("button[data-active]");
+    if (!activeButton) return;
+
+    const targetLeft = activeButton.offsetLeft - (rail.clientWidth - activeButton.offsetWidth) / 2;
+    rail.scrollTo({
+      left: Math.max(0, targetLeft),
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+  }, [activeGroupId, isMobile, prefersReducedMotion]);
 
   function scrollToPosition(position: number) {
     const section = sectionRef.current;
@@ -139,7 +156,7 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
             Klassische Liste
           </button>
 
-          <nav className={styles.storyBookChapters} aria-label="Kapitel der Speisekarte">
+          <nav ref={chapterRailRef} className={styles.storyBookChapters} aria-label="Kapitel der Speisekarte">
             {groups.map((group) => (
               <button
                 key={group.id}
