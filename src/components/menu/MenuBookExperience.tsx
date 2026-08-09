@@ -11,6 +11,7 @@ import {
 } from "react";
 import { BookOpen, ChevronLeft, ChevronRight, List } from "lucide-react";
 import {
+  AnimatePresence,
   m,
   useMotionValueEvent,
   useReducedMotion,
@@ -46,6 +47,7 @@ function getServerMobileSnapshot() {
 
 export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const activeTurnRef = useRef(0);
   const prefersReducedMotion = useReducedMotion();
   const isMobile = useSyncExternalStore(subscribeMobile, getMobileSnapshot, getServerMobileSnapshot);
   const { setView } = useMenuView();
@@ -65,10 +67,15 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
   const baseOpacity = useTransform(bookPosition, [0.18, 0.82], [0, 1]);
   const [activeTurn, setActiveTurn] = useState(0);
   const [activePageIndex, setActivePageIndex] = useState(0);
+  const [turnDirection, setTurnDirection] = useState(1);
 
   useMotionValueEvent(bookPosition, "change", (latest) => {
     const nextTurn = Math.max(0, Math.min(turnCount, Math.round(latest)));
-    setActiveTurn((current) => (current === nextTurn ? current : nextTurn));
+    if (activeTurnRef.current !== nextTurn) {
+      setTurnDirection(nextTurn > activeTurnRef.current ? 1 : -1);
+      activeTurnRef.current = nextTurn;
+      setActiveTurn(nextTurn);
+    }
 
     const nextPage = isMobile
       ? Math.max(0, Math.min(pages.length - 1, Math.round(latest - 1)))
@@ -187,19 +194,31 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
             aria-hidden={!isMobile}
           >
             <div className={styles.storyBookMobileBase} />
-            <m.div
-              key={activeTurn}
-              className={styles.storyBookMobilePage}
-              initial={{ opacity: 0, x: prefersReducedMotion ? 0 : 14 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
-            >
-              {activeTurn === 0
-                ? <CoverFront />
-                : activePage
-                  ? <BookPage page={activePage} pageNumber={activePageIndex + 1} />
-                  : <BlankPage />}
-            </m.div>
+            <AnimatePresence initial={false}>
+              <m.div
+                key={activeTurn}
+                className={styles.storyBookMobilePage}
+                initial={prefersReducedMotion ? false : {
+                  opacity: 0.35,
+                  rotateY: turnDirection > 0 ? 82 : -82,
+                  x: turnDirection > 0 ? 10 : -10,
+                }}
+                animate={{ opacity: 1, rotateY: 0, x: 0 }}
+                exit={prefersReducedMotion ? undefined : {
+                  opacity: 0.2,
+                  rotateY: turnDirection > 0 ? -82 : 82,
+                  x: turnDirection > 0 ? -10 : 10,
+                }}
+                transition={{ duration: prefersReducedMotion ? 0 : 0.52, ease: [0.22, 1, 0.36, 1] }}
+                style={{ transformOrigin: turnDirection > 0 ? "left center" : "right center" }}
+              >
+                {activeTurn === 0
+                  ? <CoverFront />
+                  : activePage
+                    ? <BookPage page={activePage} pageNumber={activePageIndex + 1} />
+                    : <BlankPage />}
+              </m.div>
+            </AnimatePresence>
           </div>
 
           <div className={styles.storyBookProgress} aria-live="polite">

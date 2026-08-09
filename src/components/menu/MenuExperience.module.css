@@ -1906,10 +1906,12 @@
     left: 0;
     z-index: 8;
     display: block;
-    width: min(calc(100vw - 2rem), calc(70svh - 10.5rem), 24rem);
+    width: min(78vw, calc(70svh - 13rem), 20rem);
     aspect-ratio: 0.7;
     margin-inline: auto;
     translate: 0 -48%;
+    perspective: 1600px;
+    transform-style: preserve-3d;
   }
 
   .storyBookMobileBase {
@@ -1924,6 +1926,10 @@
     overflow: hidden;
     border-radius: 0.2rem 0.55rem 0.55rem 0.2rem;
     background: #f8f0e1;
+    color: var(--color-ink);
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
     filter: drop-shadow(0 22px 24px rgb(0 0 0 / 0.32));
   }
 
@@ -1941,10 +1947,12 @@
     right: 1rem;
     min-height: 2.25rem;
     padding: 0 0.75rem;
+    background: rgb(12 17 13 / 0.78);
+    font-size: 0.62rem;
   }
 
   .storyBookListButton svg {
-    display: none;
+    display: block;
   }
 
   .storyBookChapters {
@@ -1955,7 +1963,8 @@
     display: flex;
     gap: 0.35rem;
     overflow-x: auto;
-    padding: 0 1rem;
+    padding: 0.2rem 1rem;
+    background: linear-gradient(90deg, transparent, rgb(12 17 13 / 0.7) 8% 92%, transparent);
     translate: none;
     scrollbar-width: none;
   }
