@@ -83,33 +83,6 @@
 .qualityMark strong { margin: 0.15rem 0; color: var(--color-terracotta); font-family: var(--font-display); font-size: 3.2rem; font-style: italic; font-weight: 400; line-height: 1; }
 .qualityMark small { color: var(--color-ink-soft); }
 
-.weeklyPanel {
-  display: flex;
-  margin-top: clamp(4rem, 8vw, 7rem);
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: clamp(1.75rem, 4vw, 3rem);
-  background: var(--color-forest-dark);
-  color: var(--color-cream);
-  box-shadow: 0 28px 70px -45px rgb(20 27 22 / 0.6);
-}
-
-.lightArrowLink {
-  display: inline-flex;
-  min-height: 2.75rem;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  transition: gap 300ms ease, color 300ms ease;
-}
-
-.lightArrowLink { color: var(--color-cream); }
-.lightArrowLink:hover { gap: 1.4rem; color: var(--color-gold); }
-
 .cucina { position: relative; }
 .cucina::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 80% 30%, rgb(201 154 62 / 0.1), transparent 34%); pointer-events: none; }
 
@@ -214,7 +187,6 @@
 @keyframes atmosphere-drift { to { transform: translateX(-45%); } }
 
 @media (max-width: 63.999rem) {
-  .weeklyPanel { align-items: flex-start; flex-direction: column; }
   .cucinaGallery { min-height: clamp(40rem, 125vw, 58rem); }
   .storyComposition { padding-bottom: 10rem; }
   .visitHeader, .reservationLayout { grid-template-columns: 1fr; }
@@ -223,7 +195,6 @@
 
 @media (max-width: 39.999rem) {
   .manifestoWatermark, .qualityMark { display: none; }
-  .weeklyPanel { margin-left: -1.5rem; margin-right: -1.5rem; }
   .cucinaGallery { min-height: clamp(35rem, 145vw, 43rem); }
   .cucinaImageMain { width: 82%; }
   .cucinaImageAccent { width: 46%; }

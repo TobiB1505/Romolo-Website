@@ -40,10 +40,6 @@ export const homeContent = {
   philosophySupport:
     "Klassische Lieblingsgerichte mit Herz zubereitet – vor allem aber viel Liebe für gutes, handgemachtes Essen.",
 
-  weeklyMenuEyebrow: "Mittagstisch",
-  weeklyMenuNote:
-    "Wir bieten wöchentlich wechselnde Mittagsmenüs an! Warmes Essen, warme Herzen – so einfach ist das.",
-
   storyEyebrow: "La Storia",
   storyHeadline: "Ein Ort zum Ankommen",
   storyText:

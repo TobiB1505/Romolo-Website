@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/Container";
+import { GoogleReviewsPanel } from "@/components/home/GoogleReviewsPanel";
 import { Reveal } from "@/components/motion/Reveal";
 import { homeContent } from "@/lib/data/restaurant";
 import styles from "./HomeEditorial.module.css";
@@ -53,15 +52,7 @@ export function PhilosophySection() {
         </div>
 
         <Reveal delay={0.12}>
-          <div className={styles.weeklyPanel}>
-            <div>
-              <span className="eyebrow text-gold">{homeContent.weeklyMenuEyebrow}</span>
-              <p className="mt-3 max-w-xl text-cream/68">{homeContent.weeklyMenuNote}</p>
-            </div>
-            <Link href="/speisekarte" className={styles.lightArrowLink}>
-              Aktuelle Karte <ArrowRight size={16} aria-hidden />
-            </Link>
-          </div>
+          <GoogleReviewsPanel />
         </Reveal>
       </Container>
     </section>

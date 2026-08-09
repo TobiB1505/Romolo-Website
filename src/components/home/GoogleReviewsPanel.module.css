@@ -1,0 +1,332 @@
+.panel {
+  position: relative;
+  overflow: hidden;
+  margin-top: clamp(4rem, 8vw, 7rem);
+  background: var(--color-forest-dark);
+  box-shadow: 0 28px 70px -45px rgb(20 27 22 / 0.6);
+  color: var(--color-cream);
+}
+
+.panel::after {
+  position: absolute;
+  top: -0.28em;
+  right: -0.04em;
+  content: "4,6";
+  color: rgb(250 244 233 / 0.025);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(9rem, 21vw, 19rem);
+  font-style: italic;
+  line-height: 1;
+  letter-spacing: -0.08em;
+  pointer-events: none;
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  border-bottom: 1px solid rgb(250 244 233 / 0.14);
+}
+
+.eyebrow {
+  color: var(--color-gold);
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.header h2 {
+  margin-top: 0.75rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.45rem, 5vw, 4.8rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.header h2 em {
+  color: var(--color-gold);
+  font-weight: 400;
+}
+
+.profileLink {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.8rem;
+  border-bottom: 1px solid rgb(250 244 233 / 0.3);
+  color: rgb(250 244 233 / 0.78);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: border-color 220ms ease, color 220ms ease;
+}
+
+.profileLink:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.profileLink:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 5px;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.65fr) minmax(0, 2fr);
+}
+
+.scoreArea {
+  display: flex;
+  min-height: 23rem;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  border-right: 1px solid rgb(250 244 233 / 0.14);
+}
+
+.googleLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: rgb(250 244 233 / 0.7);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.googleLabel > span {
+  display: grid;
+  place-items: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  border: 1px solid rgb(250 244 233 / 0.26);
+  border-radius: 50%;
+  color: var(--color-gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 0.9rem;
+}
+
+.scoreLine {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  margin-top: 2.2rem;
+}
+
+.scoreLine strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(5rem, 8vw, 7rem);
+  font-weight: 400;
+  line-height: 0.8;
+  letter-spacing: -0.07em;
+}
+
+.scoreLine small {
+  color: rgb(250 244 233 / 0.46);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.stars {
+  display: flex;
+  width: fit-content;
+  gap: 0.18rem;
+  color: var(--color-gold);
+}
+
+.scoreArea > .stars {
+  margin-top: 1.1rem;
+}
+
+.scoreArea > p {
+  margin-top: 1rem;
+  color: rgb(250 244 233 / 0.62);
+  font-size: 0.7rem;
+  line-height: 1.6;
+}
+
+.scoreArea > p span {
+  display: block;
+  color: rgb(250 244 233 / 0.35);
+}
+
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.quotes article {
+  display: flex;
+  min-width: 0;
+  min-height: 23rem;
+  flex-direction: column;
+  padding: clamp(1.75rem, 3vw, 2.75rem);
+  border-right: 1px solid rgb(250 244 233 / 0.12);
+  transition: background-color 260ms ease;
+}
+
+.quotes article:last-child {
+  border-right: 0;
+}
+
+.quotes article:hover {
+  background: rgb(250 244 233 / 0.045);
+}
+
+.quoteMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.quoteMeta > span {
+  color: rgb(250 244 233 / 0.32);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+}
+
+.quoteMeta .stars {
+  gap: 0.08rem;
+}
+
+.quoteMeta .stars svg {
+  width: 0.68rem;
+  height: 0.68rem;
+}
+
+.quotes blockquote {
+  margin-block: auto;
+  padding-block: 1.75rem;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.quotes footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(250 244 233 / 0.12);
+}
+
+.quotes footer strong {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.quotes footer > span {
+  color: rgb(250 244 233 / 0.4);
+  font-size: 0.61rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 63.999rem) {
+  .header {
+    align-items: flex-start;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .scoreArea {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    min-height: auto;
+    align-items: end;
+    gap: 0.75rem 2rem;
+    border-right: 0;
+    border-bottom: 1px solid rgb(250 244 233 / 0.14);
+  }
+
+  .googleLabel,
+  .scoreLine,
+  .scoreArea > .stars,
+  .scoreArea > p {
+    margin: 0;
+  }
+
+  .googleLabel,
+  .scoreLine,
+  .scoreArea > .stars {
+    grid-column: 1;
+  }
+
+  .scoreArea > p {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    text-align: right;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .panel {
+    margin-inline: -1.5rem;
+  }
+
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .profileLink {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .scoreArea {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .scoreLine {
+    margin-top: 1.75rem;
+  }
+
+  .scoreArea > .stars {
+    margin-top: 0.75rem;
+  }
+
+  .scoreArea > p {
+    margin-top: 0.7rem;
+    text-align: left;
+  }
+
+  .quotes {
+    grid-template-columns: 1fr;
+  }
+
+  .quotes article {
+    min-height: 19rem;
+    border-right: 0;
+    border-bottom: 1px solid rgb(250 244 233 / 0.12);
+  }
+
+  .quotes article:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quotes article,
+  .profileLink {
+    transition: none;
+  }
+}
