@@ -8,11 +8,11 @@ import type { CucinaDish } from "@/components/home/CucinaDishStrip";
 import { dishRotationIntervalMs, duration, easing } from "@/lib/motion";
 import styles from "./HomeEditorial.module.css";
 
-/** Slot-Klassen und Bildgrößen entsprechen dem Collage-Grid in HomeEditorial.module.css. */
+/** Slot-Klassen und Bildgrößen entsprechen der Collage-Geometrie in HomeEditorial.module.css. */
 const slots = [
-  { className: styles.cucinaImageMain, sizes: "(min-width: 1024px) 34vw, 92vw" },
-  { className: styles.cucinaImageAccent, sizes: "(min-width: 1024px) 23vw, 46vw" },
-  { className: styles.cucinaImageDetail, sizes: "(min-width: 1024px) 23vw, 46vw" },
+  { className: styles.cucinaImageMain, sizes: "35vw" },
+  { className: styles.cucinaImageAccent, sizes: "20vw" },
+  { className: styles.cucinaImageDetail, sizes: "19vw" },
 ];
 
 /**

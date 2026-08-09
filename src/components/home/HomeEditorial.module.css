@@ -137,28 +137,26 @@
 .cucinaStripCard { position: relative; flex: 0 0 auto; width: 27%; aspect-ratio: 4 / 5; scroll-snap-align: start; }
 
 /*
- * Desktop: gestaffeltes Zweispalten-Grid statt überlappender Absolut-
- * Collage – links zwei quadratische Bilder übereinander (leicht nach unten
- * versetzt), rechts das große Hochformat über beide Reihen. Nichts
- * überlappt – jede Bildunterschrift bleibt sichtbar, und die rotierenden
- * Crossfades wirken ruhig statt gestapelt.
- */
-/*
+ * Desktop: überlappende Absolut-Collage – großes Hochformat rechts, zwei
+ * kleinere Bilder greifen unten links darüber (mit Rahmen abgesetzt).
  * Standardmäßig ausgeblendet (Mobile/Tablet zeigen CucinaDishStrip) – erst
  * ab dem lg-Breakpoint eingeblendet. Bewusst hier im Modul entschieden statt
  * über eine Tailwind-`hidden`-Klasse auf demselben Element: die würde von
  * dieser unconditional `display`-Deklaration je nach Stylesheet-Reihenfolge
  * überschrieben und die Collage bliebe auch auf Mobile sichtbar.
  */
-.cucinaGallery { display: none; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); grid-template-rows: auto auto; gap: clamp(1.25rem, 2.5vw, 2rem); align-items: start; }
+.cucinaGallery { display: none; position: relative; min-height: clamp(48rem, 68vw, 60rem); }
 
 @media (min-width: 64rem) {
-  .cucinaGallery { display: grid; }
+  .cucinaGallery { display: block; }
 }
-.cucinaImageMain { position: relative; grid-column: 2; grid-row: 1 / span 2; aspect-ratio: 3 / 4; }
-.cucinaImageAccent { position: relative; grid-column: 1; grid-row: 1; margin-top: clamp(2.5rem, 6vw, 5rem); aspect-ratio: 1 / 1; }
-.cucinaImageDetail { position: relative; grid-column: 1; grid-row: 2; aspect-ratio: 1 / 1; }
+.cucinaImageMain { position: absolute; z-index: 1; top: 0; right: 0; width: 72%; aspect-ratio: 2 / 3; }
+.cucinaImageAccent { position: absolute; z-index: 2; bottom: 2%; left: 0; width: 42%; aspect-ratio: 2 / 3; border: 0.75rem solid var(--color-forest-dark); }
+.cucinaImageDetail { position: absolute; z-index: 3; right: 1%; bottom: 5%; width: 31%; aspect-ratio: 2 / 3; border: 0.65rem solid var(--color-forest-dark); }
 .cucinaSlotLayer { position: absolute; inset: 0; }
+/* Der Haupt-Slot wird unten von Accent- und Detail-Bild überlappt (höherer
+   z-index) – seine Bildunterschrift wandert deshalb nach oben links. */
+.cucinaImageMain .imageCaption { top: 1rem; bottom: auto; }
 
 .editorialImage { object-fit: cover; transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1), filter 700ms ease; }
 .cucinaStripCard:hover .editorialImage, .cucinaGallery > div:hover .editorialImage, .storyImage:hover .editorialImage { transform: scale(1.035); filter: saturate(1.05); }
