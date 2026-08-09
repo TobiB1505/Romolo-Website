@@ -10,8 +10,8 @@ import { easing } from "@/lib/motion";
 import styles from "./MenuExperience.module.css";
 
 const heroImage = {
-  src: "/images/categories/pasta.png",
-  alt: "Hausgemachte Pasta vor einer italienischen Kreidetafel",
+  src: "/images/categories/pasta.jpg",
+  alt: "Linguine mit Pfifferlingen, angerichtet auf dem Tisch im Restaurant",
 };
 
 export function MenuHero() {

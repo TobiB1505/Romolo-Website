@@ -63,10 +63,10 @@ export const menuVisualGroupConfigs: MenuVisualGroupConfig[] = [
     editorial: "Klassiker, wie man sie aus der Trattoria kennt.",
     categorySlugs: ["pasta", "pasta-al-forno"],
     moodImage: {
-      src: "/images/categories/pasta.png",
-      alt: "Teller Fettuccine vor der Pasta-Schiefertafel, umgeben von Basilikum und Parmesan",
-      objectPosition: "center 42%",
-      mobileObjectPosition: "center 78%",
+      src: "/images/categories/pasta.jpg",
+      alt: "Linguine mit Pfifferlingen und Balsamico-Reduktion, angerichtet auf dem Tisch im Restaurant",
+      objectPosition: "center 55%",
+      mobileObjectPosition: "center 75%",
     },
   },
   {
