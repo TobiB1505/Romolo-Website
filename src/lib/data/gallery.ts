@@ -17,6 +17,10 @@ export const galleryImages: GalleryImage[] = [
   { src: "/images/gallery/interior-9.jpg", alt: "Langer festlich gedeckter Tisch vor der historischen Weinpresse", width: 1122, height: 1402 },
   { src: "/images/gallery/exterior-2.jpg", alt: "Tisch im Gastgarten mit Speisekarte, umgeben von blühendem Oleander", width: 1086, height: 1448 },
   { src: "/images/gallery/exterior-3.jpg", alt: "Langer gedeckter Tisch im Gastgarten unter Kastanienbäumen", width: 1085, height: 1450 },
+  { src: "/images/gallery/interior-10.jpg", alt: "Gewölbekeller-Gastraum mit Sitzbank-Reihe und historischen Fischerfotos an der Wand", width: 1086, height: 1448 },
+  { src: "/images/gallery/interior-11.jpg", alt: "Gemütliche Sitznische mit zwei gedeckten Tischen unter der Gewölbedecke", width: 1086, height: 1448 },
+  { src: "/images/gallery/interior-12.jpg", alt: "Reservierter Tisch am Fenster mit Blick auf den Stadtplatz", width: 1086, height: 1448 },
+  { src: "/images/gallery/interior-13.jpg", alt: "Gewölbekeller-Gastraum mit Sitzbank-Reihe, zweite Ansicht", width: 1254, height: 1254 },
 ];
 
 export const heroImage: GalleryImage = {
