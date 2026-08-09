@@ -46,7 +46,16 @@
 }
 
 @media (max-width: 47.999rem) {
-  .introCopy { grid-column: span 12; }
+  /* introLabel/introTitle/introCopy stapeln hier vollständig. Das Grid auf
+     ein einziges 1fr zurückzusetzen reicht allein nicht – "grid-column:
+     span 12" (bzw. 9) auf den Kindern zwingt das Grid sonst, trotzdem
+     weitere implizite Spalten samt Spaltenabständen zu erzeugen, die sich
+     allein schon auf mehr als die Bildschirmbreite summieren. Deshalb hier
+     auch grid-column auf allen dreien zurücksetzen. */
+  .introGrid { grid-template-columns: 1fr; }
+  .introLabel,
+  .introTitle,
+  .introCopy { grid-column: span 1; }
   .aboutComposition { min-height: 48rem; }
   .aboutMainImage { width: 92%; }
   .aboutSideImage { width: 54%; }
