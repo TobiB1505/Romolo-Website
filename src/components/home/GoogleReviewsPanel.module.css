@@ -1,12 +1,4 @@
-.panel {
-  position: relative;
-  overflow: hidden;
-  margin-top: clamp(4rem, 8vw, 7rem);
-  border: 1px solid rgb(201 154 62 / 0.24);
-  background: var(--color-forest-dark);
-  box-shadow: 0 28px 70px -45px rgb(20 27 22 / 0.6);
-  color: var(--color-cream);
-}
+.panel { position: relative; }
 
 .panel::after {
   position: absolute;
@@ -29,7 +21,7 @@
   align-items: end;
   justify-content: space-between;
   gap: 2rem;
-  padding: clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
   border-bottom: 1px solid rgb(250 244 233 / 0.14);
 }
 

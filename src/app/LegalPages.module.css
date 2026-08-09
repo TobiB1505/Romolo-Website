@@ -162,9 +162,15 @@
 }
 
 @media (max-width: 47.999rem) {
-  .layout { gap: 3rem; }
+  /* aside und article stapeln hier vollständig übereinander. Das Grid auf
+     ein einziges 1fr zurückzusetzen reicht allein nicht – "grid-column:
+     span 12" auf den Kindern zwingt das Grid sonst, trotzdem 11 weitere
+     (implizite) Spalten samt Spaltenabständen zu erzeugen, die sich allein
+     schon auf mehr als die Bildschirmbreite summieren und Inhalt über den
+     Rand hinauslaufen lassen. Deshalb hier auch grid-column zurücksetzen. */
+  .layout { grid-template-columns: 1fr; gap: 3rem; }
   .aside,
-  .article { grid-column: span 12; }
+  .article { grid-column: span 1; }
   .asideInner { position: relative; top: auto; }
   .asideMeta { margin-top: 1rem; }
   .lead { margin-bottom: 3rem; }
