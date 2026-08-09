@@ -6,7 +6,11 @@ import styles from "./ReservationForm.module.css";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export function ReservationForm() {
+interface ReservationFormProps {
+  variant?: "light" | "dark";
+}
+
+export function ReservationForm({ variant = "light" }: ReservationFormProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -40,7 +44,7 @@ export function ReservationForm() {
 
   if (status === "success") {
     return (
-      <div className={styles.success}>
+      <div className={`${styles.success} ${variant === "dark" ? styles.successDark : ""}`}>
         <p className="font-medium">Anfrage ist raus.</p>
         <p>Wir melden uns schnellstmöglich per E-Mail mit deiner Bestätigung.</p>
       </div>
@@ -48,7 +52,7 @@ export function ReservationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form onSubmit={handleSubmit} className={`${styles.form} ${variant === "dark" ? styles.formDark : ""}`}>
       {/* Honeypot – für echte Nutzer unsichtbar */}
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 

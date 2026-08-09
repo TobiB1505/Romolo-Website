@@ -33,7 +33,7 @@ export function VisitSection() {
           <Reveal delay={0.08} className={styles.reservationPanel}>
             <span className="eyebrow text-terracotta">Online reservieren</span>
             <h3>In weniger als<br />einer Minute.</h3>
-            <div className={styles.reservationFormWrap}><ReservationForm /></div>
+            <div className={styles.reservationFormWrap}><ReservationForm variant="dark" /></div>
           </Reveal>
 
           <aside className={styles.visitAside}>
