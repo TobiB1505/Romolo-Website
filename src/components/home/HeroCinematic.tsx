@@ -156,13 +156,14 @@ export function HeroCinematic() {
               {homeContent.heroSubline} Mitten am Stadtplatz, mit offenen Türen und einem Tisch für Sie.
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-5">
-              <Link href="/speisekarte" className={`${styles.primaryLink} group`}>
-                Speisekarte entdecken
+            <div className={styles.heroActions}>
+              <Link href="#prenotazione" className={`${styles.primaryLink} group`}>
+                Tisch reservieren
                 <ArrowRight size={16} aria-hidden className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
-              <Link href="#prenotazione" className={styles.textLink}>
-                Tisch reservieren
+              <Link href="/speisekarte" className={`${styles.secondaryLink} group`}>
+                Speisekarte ansehen
+                <ArrowRight size={16} aria-hidden className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
           </m.div>
