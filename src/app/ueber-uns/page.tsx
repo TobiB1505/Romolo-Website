@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: "Familiengeführtes italienisches Restaurant am Stadtplatz in Miesbach – gute Küche, herzliche Gastfreundschaft.",
 };
 
-const mainImage = findGalleryImage("interior-6");
+const mainImage = findGalleryImage("interior-9");
 const sideImage = findGalleryImage("exterior-1");
 
 const values = [
