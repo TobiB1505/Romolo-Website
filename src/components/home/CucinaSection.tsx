@@ -1,9 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/motion/Reveal";
-import { ImageReveal } from "@/components/motion/ImageReveal";
+import { CucinaRotatingGallery, type CucinaDish } from "@/components/home/CucinaRotatingGallery";
 import { menuGroups } from "@/lib/data/menu";
 import { aboutContent } from "@/lib/data/restaurant";
 import type { MenuItem } from "@/lib/types";
@@ -23,29 +22,36 @@ function getSignatureDishes(): MenuItem[] {
     .filter((item): item is MenuItem => Boolean(item));
 }
 
-const pastaImage = {
-  src: "/images/cucina/linguine-ai-funghi.jpg",
-  alt: "Linguine mit Pfifferlingen, angerichtet auf dem Tisch im Restaurant",
-};
-const grillImage = {
-  src: "/images/cucina/scampi-alla-griglia.jpg",
-  alt: "Gegrillte Scampi auf Blattspinat, angerichtet auf dem Tisch im Restaurant",
-};
-const seafoodImage = {
-  src: "/images/cucina/insalata-di-mare.jpg",
-  alt: "Insalata di Mare mit Muscheln, Venusmuscheln und Garnelen",
-};
-
-const moreDishes = [
+/**
+ * Rotieren in der Collage durch: Slot i zeigt reihum die Gerichte i, i+3
+ * (siehe CucinaRotatingGallery). Die Reihenfolge bestimmt also die Paarung
+ * pro Slot – die beiden auffälligsten Teller liegen im großen Haupt-Slot.
+ */
+const cucinaDishes: CucinaDish[] = [
+  {
+    src: "/images/cucina/scampi-alla-griglia.jpg",
+    alt: "Gegrillte Scampi auf Blattspinat, angerichtet auf dem Tisch im Restaurant",
+    label: "Scampi alla Griglia",
+  },
+  {
+    src: "/images/cucina/tagliatelle-piselli-e-vongole.jpg",
+    alt: "Tagliatelle mit Erbsen, Venusmuscheln und Tomaten-Sahne-Soße",
+    label: "Tagliatelle Piselli e Vongole",
+  },
   {
     src: "/images/cucina/spiedini-di-gamberi.jpg",
     alt: "Gambero-Spiedini vom Grill mit Zucchini und Basilikum-Öl",
     label: "Spiedini di Gamberi",
   },
   {
-    src: "/images/cucina/tagliatelle-piselli-e-vongole.jpg",
-    alt: "Tagliatelle mit Erbsen, Venusmuscheln und Tomaten-Sahne-Soße",
-    label: "Tagliatelle Piselli e Vongole",
+    src: "/images/cucina/insalata-di-mare.jpg",
+    alt: "Insalata di Mare mit Muscheln, Venusmuscheln und Garnelen",
+    label: "Insalata di Mare",
+  },
+  {
+    src: "/images/cucina/linguine-ai-funghi.jpg",
+    alt: "Linguine mit Pfifferlingen, angerichtet auf dem Tisch im Restaurant",
+    label: "Linguine ai Funghi",
   },
   {
     src: "/images/cucina/pasta-pollo-e-funghi.jpg",
@@ -100,34 +106,7 @@ export function CucinaSection() {
             </div>
           </div>
 
-          <div className={`${styles.cucinaGallery} lg:col-span-7`}>
-            <ImageReveal className={`${styles.cucinaImageMain} overflow-hidden`}>
-              <Image src={pastaImage.src} alt={pastaImage.alt} fill sizes="(min-width: 1024px) 35vw, 82vw" className={styles.editorialImage} />
-              <span className={styles.imageCaption}>Pasta fatta con amore</span>
-            </ImageReveal>
-            <ImageReveal delay={0.12} className={`${styles.cucinaImageAccent} overflow-hidden`}>
-              <Image src={grillImage.src} alt={grillImage.alt} fill sizes="(min-width: 1024px) 20vw, 46vw" className={styles.editorialImage} />
-              <span className={styles.imageCaption}>Alla griglia</span>
-            </ImageReveal>
-            <ImageReveal delay={0.2} className={`${styles.cucinaImageDetail} overflow-hidden`}>
-              <Image src={seafoodImage.src} alt={seafoodImage.alt} fill sizes="(min-width: 1024px) 19vw, 44vw" className={styles.editorialImage} />
-              <span className={styles.imageCaption}>Frutti di mare</span>
-            </ImageReveal>
-          </div>
-        </div>
-
-        <div className={styles.cucinaMoreDishes}>
-          <Reveal>
-            <span className={styles.cucinaMoreDishesLabel}>Dalla nostra cucina</span>
-          </Reveal>
-          <div className={styles.cucinaMoreDishesGrid}>
-            {moreDishes.map((dish, index) => (
-              <ImageReveal key={dish.src} delay={index * 0.06} className={`${styles.cucinaMoreDishesItem} overflow-hidden`}>
-                <Image src={dish.src} alt={dish.alt} fill sizes="(min-width: 1024px) 17vw, 46vw" className={styles.editorialImage} />
-                <span className={styles.imageCaption}>{dish.label}</span>
-              </ImageReveal>
-            ))}
-          </div>
+          <CucinaRotatingGallery dishes={cucinaDishes} className="lg:col-span-7" />
         </div>
       </Container>
     </section>
