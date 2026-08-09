@@ -11,7 +11,6 @@ import {
 } from "react";
 import { BookOpen, ChevronLeft, ChevronRight, List } from "lucide-react";
 import {
-  AnimatePresence,
   m,
   useMotionValueEvent,
   useReducedMotion,
@@ -55,31 +54,28 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
     () => Array.from({ length: Math.ceil(pages.length / 2) }, (_, index) => pages.slice(index * 2, index * 2 + 2)),
     [pages],
   );
-  const turnCount = isMobile ? pages.length : desktopLeaves.length;
+  const turnCount = desktopLeaves.length;
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
   const bookPosition = useTransform(scrollYProgress, [0, 1], [0, turnCount]);
   const desktopBookX = useTransform(bookPosition, [0, 0.9], ["-25%", "0%"]);
+  const mobileBookX = useTransform(bookPosition, [0, 0.72], ["-25%", "0%"]);
   const bookScale = useTransform(bookPosition, [0, 0.85], [0.9, 1]);
   const introOpacity = useTransform(bookPosition, [0, 0.55, 1], [1, 0.35, 0]);
   const baseOpacity = useTransform(bookPosition, [0.18, 0.82], [0, 1]);
   const [activeTurn, setActiveTurn] = useState(0);
   const [activePageIndex, setActivePageIndex] = useState(0);
-  const [turnDirection, setTurnDirection] = useState(1);
 
   useMotionValueEvent(bookPosition, "change", (latest) => {
     const nextTurn = Math.max(0, Math.min(turnCount, Math.round(latest)));
     if (activeTurnRef.current !== nextTurn) {
-      setTurnDirection(nextTurn > activeTurnRef.current ? 1 : -1);
       activeTurnRef.current = nextTurn;
       setActiveTurn(nextTurn);
     }
 
-    const nextPage = isMobile
-      ? Math.max(0, Math.min(pages.length - 1, Math.round(latest - 1)))
-      : Math.max(0, Math.min(pages.length - 1, Math.max(0, Math.round(latest) - 1) * 2));
+    const nextPage = Math.max(0, Math.min(pages.length - 1, Math.max(0, Math.round(latest) - 1) * 2));
     setActivePageIndex((current) => (current === nextPage ? current : nextPage));
   });
 
@@ -97,7 +93,7 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
   function scrollToGroup(groupId: string) {
     const pageIndex = pages.findIndex((page) => page.groupId === groupId);
     if (pageIndex < 0) return;
-    const position = isMobile ? pageIndex + 1 : 1 + Math.ceil(pageIndex / 2);
+    const position = 1 + Math.ceil(pageIndex / 2);
     scrollToPosition(position);
   }
 
@@ -115,7 +111,7 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
         className={styles.storyBookTrack}
         style={{
           "--book-turns": turnCount,
-          "--book-track-height": `${100 + turnCount * (isMobile ? 90 : 74)}svh`,
+          "--book-track-height": `${100 + turnCount * (isMobile ? 54 : 74)}svh`,
         } as CSSProperties}
         aria-label="Interaktive Speisekarte"
       >
@@ -158,68 +154,33 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
             ))}
           </nav>
 
-          <m.div
-            className={styles.storyBookDesktop}
-            style={{ x: prefersReducedMotion ? 0 : desktopBookX, scale: prefersReducedMotion ? 1 : bookScale }}
-            aria-hidden={isMobile}
-          >
-            <m.div className={styles.storyBookBase} style={{ opacity: prefersReducedMotion ? 1 : baseOpacity }}>
-              <div className={styles.storyBookBaseLeft} />
-              <div className={styles.storyBookBaseRight} />
-              <i className={styles.storyBookSpine} aria-hidden />
-            </m.div>
-
-            <TurningSheet index={0} total={desktopLeaves.length + 1} position={bookPosition} className={styles.storyBookDesktopSheet} reducedMotion={Boolean(prefersReducedMotion)}>
-              <CoverFront />
-              <InsideCover />
-            </TurningSheet>
-
-            {desktopLeaves.map((leaf, index) => (
-              <TurningSheet
-                key={leaf[0]?.id ?? index}
-                index={index + 1}
-                total={desktopLeaves.length + 1}
+          {isMobile ? (
+            <m.div
+              className={styles.storyBookMobile}
+              style={{ x: prefersReducedMotion ? 0 : mobileBookX, scale: prefersReducedMotion ? 1 : bookScale }}
+            >
+              <BookBase opacity={prefersReducedMotion ? undefined : baseOpacity} />
+              <BookSheets
+                leaves={desktopLeaves}
                 position={bookPosition}
-                className={styles.storyBookDesktopSheet}
+                sheetClassName={styles.storyBookMobileSheet}
                 reducedMotion={Boolean(prefersReducedMotion)}
-              >
-                <BookPage page={leaf[0]} pageNumber={index * 2 + 1} />
-                {leaf[1] ? <BookPage page={leaf[1]} pageNumber={index * 2 + 2} /> : <BlankPage />}
-              </TurningSheet>
-            ))}
-          </m.div>
-
-          <div
-            className={styles.storyBookMobile}
-            aria-hidden={!isMobile}
-          >
-            <div className={styles.storyBookMobileBase} />
-            <AnimatePresence initial={false}>
-              <m.div
-                key={activeTurn}
-                className={styles.storyBookMobilePage}
-                initial={prefersReducedMotion ? false : {
-                  opacity: 0.35,
-                  rotateY: turnDirection > 0 ? 82 : -82,
-                  x: turnDirection > 0 ? 10 : -10,
-                }}
-                animate={{ opacity: 1, rotateY: 0, x: 0 }}
-                exit={prefersReducedMotion ? undefined : {
-                  opacity: 0.2,
-                  rotateY: turnDirection > 0 ? -82 : 82,
-                  x: turnDirection > 0 ? -10 : 10,
-                }}
-                transition={{ duration: prefersReducedMotion ? 0 : 0.52, ease: [0.22, 1, 0.36, 1] }}
-                style={{ transformOrigin: turnDirection > 0 ? "left center" : "right center" }}
-              >
-                {activeTurn === 0
-                  ? <CoverFront />
-                  : activePage
-                    ? <BookPage page={activePage} pageNumber={activePageIndex + 1} />
-                    : <BlankPage />}
-              </m.div>
-            </AnimatePresence>
-          </div>
+              />
+            </m.div>
+          ) : (
+            <m.div
+              className={styles.storyBookDesktop}
+              style={{ x: prefersReducedMotion ? 0 : desktopBookX, scale: prefersReducedMotion ? 1 : bookScale }}
+            >
+              <BookBase opacity={prefersReducedMotion ? undefined : baseOpacity} />
+              <BookSheets
+                leaves={desktopLeaves}
+                position={bookPosition}
+                sheetClassName={styles.storyBookDesktopSheet}
+                reducedMotion={Boolean(prefersReducedMotion)}
+              />
+            </m.div>
+          )}
 
           <div className={styles.storyBookProgress} aria-live="polite">
             <button type="button" onClick={() => scrollToPosition(activeTurn - 1)} disabled={activeTurn <= 0} aria-label="Vorherige Seite">
@@ -246,6 +207,51 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
         <h2>Ci vediamo da Romolo.</h2>
         <p>Alle Gerichte gibt es auch zum Abholen.</p>
       </section>
+    </>
+  );
+}
+
+function BookBase({ opacity }: { opacity?: MotionValue<number> }) {
+  return (
+    <m.div className={styles.storyBookBase} style={{ opacity: opacity ?? 1 }}>
+      <div className={styles.storyBookBaseLeft} />
+      <div className={styles.storyBookBaseRight} />
+      <i className={styles.storyBookSpine} aria-hidden />
+    </m.div>
+  );
+}
+
+function BookSheets({
+  leaves,
+  position,
+  sheetClassName,
+  reducedMotion,
+}: {
+  leaves: MenuBookPage[][];
+  position: MotionValue<number>;
+  sheetClassName: string;
+  reducedMotion: boolean;
+}) {
+  return (
+    <>
+      <TurningSheet index={0} total={leaves.length + 1} position={position} className={sheetClassName} reducedMotion={reducedMotion}>
+        <CoverFront />
+        <InsideCover />
+      </TurningSheet>
+
+      {leaves.map((leaf, index) => (
+        <TurningSheet
+          key={leaf[0]?.id ?? index}
+          index={index + 1}
+          total={leaves.length + 1}
+          position={position}
+          className={sheetClassName}
+          reducedMotion={reducedMotion}
+        >
+          <BookPage page={leaf[0]} pageNumber={index * 2 + 1} />
+          {leaf[1] ? <BookPage page={leaf[1]} pageNumber={index * 2 + 2} /> : <BlankPage />}
+        </TurningSheet>
+      ))}
     </>
   );
 }

@@ -1531,7 +1531,8 @@
   translate: -50% 0;
 }
 
-.storyBookDesktopSheet {
+.storyBookDesktopSheet,
+.storyBookMobileSheet {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -1548,18 +1549,20 @@
   inset: 0;
   overflow: hidden;
   border-radius: 0.12rem 0.55rem 0.55rem 0.12rem;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   background: #f8f0e1;
   color: var(--color-ink);
 }
 
 .storyBookSheetFront {
+  transform: translateZ(0.1px);
   box-shadow: inset 1.2rem 0 2.2rem rgb(83 56 31 / 0.12), 1px 0 0 rgb(91 65 39 / 0.14);
 }
 
 .storyBookSheetBack {
   border-radius: 0.55rem 0.12rem 0.12rem 0.55rem;
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(0.1px);
   box-shadow: inset -1.2rem 0 2.2rem rgb(83 56 31 / 0.12), -1px 0 0 rgb(91 65 39 / 0.14);
 }
 
@@ -1901,41 +1904,19 @@
 
   .storyBookMobile {
     position: absolute;
-    top: 50%;
+    top: 49%;
     right: 0;
     left: 0;
     z-index: 8;
     display: block;
-    width: min(78vw, calc(70svh - 13rem), 20rem);
-    aspect-ratio: 0.7;
+    width: min(96vw, calc((100svh - var(--header-h) - 11rem) * 1.48), 42rem);
+    aspect-ratio: 1.48;
     margin-inline: auto;
     translate: 0 -48%;
-    perspective: 1600px;
+    perspective: 1800px;
+    perspective-origin: center;
     transform-style: preserve-3d;
-  }
-
-  .storyBookMobileBase {
-    position: absolute;
-    inset: 0;
-    border-radius: 0.2rem 0.55rem 0.55rem 0.2rem;
-  }
-
-  .storyBookMobilePage {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    border-radius: 0.2rem 0.55rem 0.55rem 0.2rem;
-    background: #f8f0e1;
-    color: var(--color-ink);
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-    will-change: transform, opacity;
-    filter: drop-shadow(0 22px 24px rgb(0 0 0 / 0.32));
-  }
-
-  .storyBookMobilePage > * {
-    width: 100%;
-    height: 100%;
+    filter: drop-shadow(0 24px 26px rgb(0 0 0 / 0.42));
   }
 
   .storyBookIntro {
@@ -2000,12 +1981,13 @@
   }
 
   .storyBookPaperPage {
-    padding: 1.35rem 1.35rem 1.5rem;
+    padding: 0.72rem 0.7rem 0.82rem;
   }
 
   .storyBookPageHeader {
-    gap: 0.45rem;
-    padding-bottom: 0.55rem;
+    gap: 0.25rem;
+    padding-bottom: 0.32rem;
+    font-size: 0.34rem;
   }
 
   .storyBookPageHeader small {
@@ -2013,47 +1995,78 @@
   }
 
   .storyBookPageSections {
-    gap: 0.65rem;
-    margin-top: 0.7rem;
+    gap: 0.3rem;
+    margin-top: 0.38rem;
   }
 
   .storyBookMenuHeading {
-    padding-bottom: 0.42rem;
+    gap: 0.35rem;
+    padding-bottom: 0.24rem;
   }
 
   .storyBookMenuHeading h2 {
-    font-size: clamp(1.1rem, 6vw, 1.45rem);
+    font-size: clamp(0.72rem, 3.6vw, 1rem);
+  }
+
+  .storyBookMenuHeading span {
+    font-size: 0.34rem;
   }
 
   .storyBookMenuSection li {
-    min-height: 2.5rem;
-    padding: 0.33rem 0;
+    min-height: 1.55rem;
+    gap: 0.24rem;
+    padding: 0.2rem 0;
   }
 
   .storyBookMenuSection li strong {
-    font-size: 0.64rem;
+    font-size: clamp(0.42rem, 2.15vw, 0.58rem);
   }
 
   .storyBookMenuSection li p {
-    font-size: 0.5rem;
+    font-size: clamp(0.34rem, 1.75vw, 0.46rem);
+    line-height: 1.25;
   }
 
   .storyBookMenuSection li > b {
-    font-size: 0.62rem;
+    font-size: clamp(0.4rem, 2vw, 0.54rem);
+  }
+
+  .storyBookFolio {
+    right: 0.7rem;
+    bottom: 0.42rem;
+    font-size: 0.34rem;
+  }
+
+  .storyBookInsideCover {
+    padding: 0.7rem;
+  }
+
+  .storyBookInsideCover span {
+    font-size: 0.34rem;
+  }
+
+  .storyBookInsideCover strong {
+    margin: 0.6rem 0 0.5rem;
+    font-size: clamp(1rem, 5vw, 1.45rem);
+  }
+
+  .storyBookInsideCover p {
+    max-width: 8rem;
+    font-size: 0.4rem;
   }
 
   .storyBookChapterCopy h2 {
-    font-size: clamp(2.8rem, 15vw, 4.3rem);
+    font-size: clamp(1.45rem, 8vw, 2.3rem);
   }
 
   .storyBookChapterCopy p {
-    font-size: 0.62rem;
+    font-size: 0.4rem;
   }
 
   .storyBookNotesPage > div {
-    gap: 0.65rem;
-    margin-top: 1.2rem;
-    font-size: 0.56rem;
+    gap: 0.35rem;
+    margin-top: 0.65rem;
+    font-size: 0.4rem;
   }
 }
 
@@ -2066,7 +2079,8 @@
 @media (prefers-reduced-motion: reduce) {
   .storyBookDesktop,
   .storyBookMobile,
-  .storyBookDesktopSheet {
+  .storyBookDesktopSheet,
+  .storyBookMobileSheet {
     transition: none !important;
   }
 }
