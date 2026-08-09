@@ -11,7 +11,7 @@ export function VisitSection() {
   )}`;
 
   return (
-    <section id="prenotazione" data-home-section className={`${styles.visit} scroll-anchor overflow-hidden bg-cream py-section`}>
+    <section id="prenotazione" data-home-section className={`${styles.visit} scroll-anchor overflow-hidden bg-cream pt-section pb-0 sm:pb-section`}>
       <Container size="wide">
         <Reveal>
           <div className={styles.sectionIndex}>

@@ -4,21 +4,9 @@ import { Reveal } from "@/components/motion/Reveal";
 import { homeContent } from "@/lib/data/restaurant";
 import styles from "./HomeEditorial.module.css";
 
-const ribbonWords = ["Benvenuti", "Cucina italiana", "Famiglia", "Miesbach", "Dal cuore"];
-
 export function PhilosophySection() {
   return (
     <section className={`${styles.philosophy} overflow-hidden bg-cream`}>
-      <div className={styles.arrivalRibbon} aria-hidden>
-        <div className={styles.arrivalTrack}>
-          {[...ribbonWords, ...ribbonWords].map((word, index) => (
-            <span key={`${word}-${index}`}>
-              {word}<i>✦</i>
-            </span>
-          ))}
-        </div>
-      </div>
-
       <Container size="wide" className="relative pt-section pb-5 sm:pb-8">
         <span className={styles.manifestoWatermark} aria-hidden>Fatto a mano</span>
 
