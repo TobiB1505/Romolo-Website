@@ -23,6 +23,8 @@ const navItems: NavItem[] = [
   { href: "/#prenotazione", label: "Reservieren", section: "prenotazione" },
 ];
 
+const mobileNavItems = navItems.filter((item) => item.section !== "prenotazione");
+
 const MENU_ID = "mobile-navigation";
 
 /**
@@ -279,7 +281,7 @@ export function Header() {
             <nav aria-label="Hauptnavigation mobil" className={styles.menuNav}>
               <p className={styles.menuEyebrow}>Navigation</p>
               <ol className={styles.menuList}>
-                {navItems.map((item, index) => {
+                {mobileNavItems.map((item, index) => {
                   const active = item.section
                     ? pathname === "/" && activeSection === item.section
                     : pathname === item.href;
@@ -303,7 +305,7 @@ export function Header() {
 
             <aside
               className={clsx("site-menu__item", styles.menuAside)}
-              style={{ "--i": navItems.length } as CSSProperties}
+              style={{ "--i": mobileNavItems.length } as CSSProperties}
             >
               <p className={styles.menuEyebrow}>Benvenuti</p>
               <h2>Ihr Tisch<br />bei Romolo.</h2>

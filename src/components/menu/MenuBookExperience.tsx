@@ -180,6 +180,7 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
               <BookSheets
                 leaves={desktopLeaves}
                 position={bookPosition}
+                activeTurn={activeTurn}
                 sheetClassName={styles.storyBookMobileSheet}
                 reducedMotion={Boolean(prefersReducedMotion)}
               />
@@ -193,6 +194,7 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
               <BookSheets
                 leaves={desktopLeaves}
                 position={bookPosition}
+                activeTurn={activeTurn}
                 sheetClassName={styles.storyBookDesktopSheet}
                 reducedMotion={Boolean(prefersReducedMotion)}
               />
@@ -241,11 +243,13 @@ function BookBase({ opacity }: { opacity?: MotionValue<number> }) {
 function BookSheets({
   leaves,
   position,
+  activeTurn,
   sheetClassName,
   reducedMotion,
 }: {
   leaves: MenuBookPage[][];
   position: MotionValue<number>;
+  activeTurn: number;
   sheetClassName: string;
   reducedMotion: boolean;
 }) {
@@ -265,8 +269,8 @@ function BookSheets({
           className={sheetClassName}
           reducedMotion={reducedMotion}
         >
-          <BookPage page={leaf[0]} pageNumber={index * 2 + 1} />
-          {leaf[1] ? <BookPage page={leaf[1]} pageNumber={index * 2 + 2} /> : <BlankPage />}
+          <BookPage page={leaf[0]} pageNumber={index * 2 + 1} loadImage={Math.abs(index + 1 - activeTurn) <= 2} />
+          {leaf[1] ? <BookPage page={leaf[1]} pageNumber={index * 2 + 2} loadImage={Math.abs(index + 1 - activeTurn) <= 2} /> : <BlankPage />}
         </TurningSheet>
       ))}
     </>
@@ -337,11 +341,11 @@ function BlankPage() {
   return <div className={styles.storyBookBlankPage} aria-hidden />;
 }
 
-function BookPage({ page, pageNumber }: { page: MenuBookPage; pageNumber: number }) {
+function BookPage({ page, pageNumber, loadImage = true }: { page: MenuBookPage; pageNumber: number; loadImage?: boolean }) {
   if (page.kind === "chapter") {
     return (
       <article className={styles.storyBookChapterPage}>
-        {page.image && (
+        {page.image && loadImage && (
           <Image
             src={page.image.src}
             alt={page.image.alt}
