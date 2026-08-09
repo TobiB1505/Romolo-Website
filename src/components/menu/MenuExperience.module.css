@@ -1898,6 +1898,14 @@
 }
 
 @media (max-width: 63.999rem) {
+  .storyBookTrack {
+    min-height: 100dvh;
+  }
+
+  .storyBookSticky {
+    height: 100dvh;
+  }
+
   .storyBookDesktop {
     display: none;
   }
