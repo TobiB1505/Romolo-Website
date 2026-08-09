@@ -2,6 +2,7 @@
   position: relative;
   overflow: hidden;
   margin-top: clamp(4rem, 8vw, 7rem);
+  border: 1px solid rgb(201 154 62 / 0.24);
   background: var(--color-forest-dark);
   box-shadow: 0 28px 70px -45px rgb(20 27 22 / 0.6);
   color: var(--color-cream);
@@ -277,10 +278,6 @@
 }
 
 @media (max-width: 47.99rem) {
-  .panel {
-    margin-inline: -1.5rem;
-  }
-
   .header {
     align-items: flex-start;
     flex-direction: column;
