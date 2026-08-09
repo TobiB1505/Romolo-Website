@@ -9,7 +9,7 @@
 .brandLink {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.7rem;
+  gap: 0.4rem;
   white-space: nowrap;
   transition: opacity 200ms ease;
 }
