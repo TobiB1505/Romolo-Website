@@ -238,7 +238,7 @@
   .cucinaStripCard { width: 76%; }
   .storyComposition { padding-bottom: 16rem; }
   .storyImage { aspect-ratio: 4 / 5; }
-  .storyCard { width: calc(100% - 1.5rem); }
+  .storyCard { width: 78%; }
   .storyValues { grid-template-columns: 1fr; }
   .storyValue { border-right: 0; border-bottom: 1px solid var(--color-hairline); }
   .reservationLayout { margin-right: -1.5rem; margin-left: -1.5rem; }
