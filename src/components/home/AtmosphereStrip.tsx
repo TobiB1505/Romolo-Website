@@ -27,7 +27,7 @@ export function AtmosphereStrip() {
             </h2>
           </Reveal>
           <Reveal delay={0.14}>
-            <p className="max-w-xs text-sm leading-relaxed text-cream/48">Vier Räume, viele Abende – wischen Sie sich durch und finden Sie Ihren Lieblingsplatz.</p>
+            <p className="max-w-xs text-sm leading-relaxed text-cream/48">Drei Räume, viele Abende – wischen Sie sich durch und finden Sie Ihren Lieblingsplatz.</p>
           </Reveal>
         </div>
       </Container>

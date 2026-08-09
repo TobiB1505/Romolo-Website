@@ -13,7 +13,7 @@ export const roomTourStops: RoomTourStop[] = [
     number: "01",
     name: "Der Gewölbekeller",
     description:
-      "Unter historischen Kreuzgewölben, mit Blick zur offenen Küche – unser Hauptraum für laue Abende zu zweit oder in großer Runde.",
+      "Unter historischen Kreuzgewölben, mit Blick zur offenen Küche – unser Hauptraum für laue Abende zu zweit oder mit acht am runden Tisch.",
     image: findGalleryImage("interior-2"),
   },
   {
@@ -25,16 +25,8 @@ export const roomTourStops: RoomTourStop[] = [
     image: findGalleryImage("interior-12"),
   },
   {
-    id: "privater-gewoelberaum",
-    number: "03",
-    name: "Der private Gewölberaum",
-    description:
-      "Ein eigener Gewölberaum mit rundem Tisch für acht Personen – für Familienfeiern und größere Gesellschaften.",
-    image: findGalleryImage("interior-7"),
-  },
-  {
     id: "gastgarten",
-    number: "04",
+    number: "03",
     name: "Der Gastgarten",
     description:
       "Unter alten Kastanienbäumen im Innenhof – unser Garten für laue Sommerabende.",
