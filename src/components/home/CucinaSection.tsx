@@ -24,16 +24,16 @@ function getSignatureDishes(): MenuItem[] {
 }
 
 const pastaImage = {
-  src: "/images/cucina/spaghetti-frutti-di-mare.png",
-  alt: "Spaghetti Frutti di Mare mit Garnelen und Muscheln im warm beleuchteten Restaurant",
+  src: "/images/cucina/linguine-ai-funghi.jpg",
+  alt: "Linguine mit Pfifferlingen, angerichtet auf dem Tisch im Restaurant",
 };
-const pizzaImage = {
-  src: "/images/cucina/pizza-buffalina.png",
-  alt: "Pizza Buffalina mit Mozzarella und Basilikum vor dem warm leuchtenden Steinofen",
+const grillImage = {
+  src: "/images/cucina/scampi-alla-griglia.jpg",
+  alt: "Gegrillte Scampi auf Blattspinat, angerichtet auf dem Tisch im Restaurant",
 };
-const dessertImage = {
-  src: "/images/cucina/tiramisu.png",
-  alt: "Klassisches Tiramisù mit Espresso im warm beleuchteten Restaurant",
+const seafoodImage = {
+  src: "/images/cucina/insalata-di-mare.jpg",
+  alt: "Insalata di Mare mit Muscheln, Venusmuscheln und Garnelen",
 };
 
 const moreDishes = [
@@ -51,11 +51,6 @@ const moreDishes = [
     src: "/images/cucina/pasta-pollo-e-funghi.jpg",
     alt: "Linguine mit Hähnchen und Waldpilzen in Sahnesoße",
     label: "Pasta Pollo e Funghi",
-  },
-  {
-    src: "/images/cucina/insalata-di-mare.jpg",
-    alt: "Insalata di Mare mit Muscheln, Venusmuscheln und Garnelen",
-    label: "Insalata di Mare",
   },
 ];
 
@@ -111,12 +106,12 @@ export function CucinaSection() {
               <span className={styles.imageCaption}>Pasta fatta con amore</span>
             </ImageReveal>
             <ImageReveal delay={0.12} className={`${styles.cucinaImageAccent} overflow-hidden`}>
-              <Image src={pizzaImage.src} alt={pizzaImage.alt} fill sizes="(min-width: 1024px) 20vw, 46vw" className={styles.editorialImage} />
-              <span className={styles.imageCaption}>Dal forno</span>
+              <Image src={grillImage.src} alt={grillImage.alt} fill sizes="(min-width: 1024px) 20vw, 46vw" className={styles.editorialImage} />
+              <span className={styles.imageCaption}>Alla griglia</span>
             </ImageReveal>
             <ImageReveal delay={0.2} className={`${styles.cucinaImageDetail} overflow-hidden`}>
-              <Image src={dessertImage.src} alt={dessertImage.alt} fill sizes="(min-width: 1024px) 19vw, 44vw" className={styles.editorialImage} />
-              <span className={styles.imageCaption}>Dolce finale</span>
+              <Image src={seafoodImage.src} alt={seafoodImage.alt} fill sizes="(min-width: 1024px) 19vw, 44vw" className={styles.editorialImage} />
+              <span className={styles.imageCaption}>Frutti di mare</span>
             </ImageReveal>
           </div>
         </div>

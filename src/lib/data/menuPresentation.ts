@@ -63,10 +63,10 @@ export const menuVisualGroupConfigs: MenuVisualGroupConfig[] = [
     editorial: "Klassiker, wie man sie aus der Trattoria kennt.",
     categorySlugs: ["pasta", "pasta-al-forno"],
     moodImage: {
-      src: "/images/categories/pasta.jpg",
-      alt: "Linguine mit Pfifferlingen und Balsamico-Reduktion, angerichtet auf dem Tisch im Restaurant",
-      objectPosition: "center 55%",
-      mobileObjectPosition: "center 75%",
+      src: "/images/categories/pasta.png",
+      alt: "Teller Fettuccine vor der Pasta-Schiefertafel, umgeben von Basilikum und Parmesan",
+      objectPosition: "center 42%",
+      mobileObjectPosition: "center 78%",
     },
   },
   {
@@ -102,10 +102,10 @@ export const menuVisualGroupConfigs: MenuVisualGroupConfig[] = [
     editorial: "Meeresfrüchte und Fisch, mediterran.",
     categorySlugs: ["pesce"],
     moodImage: {
-      src: "/images/categories/pesce.jpg",
-      alt: "Gegrillte Scampi auf Blattspinat, angerichtet auf dem Tisch im Restaurant",
-      objectPosition: "center 55%",
-      mobileObjectPosition: "center 75%",
+      src: "/images/categories/pesce.png",
+      alt: "Gegrillter Fisch mit Meeresfrüchten vor der Pesce-Schiefertafel",
+      objectPosition: "center 42%",
+      mobileObjectPosition: "center 78%",
     },
   },
   {

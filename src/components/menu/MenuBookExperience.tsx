@@ -136,7 +136,7 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
         <div className={styles.storyBookSticky}>
           <div className={styles.storyBookStage}>
           <Image
-            src="/images/categories/pasta.jpg"
+            src="/images/categories/pasta.png"
             alt=""
             fill
             preload
