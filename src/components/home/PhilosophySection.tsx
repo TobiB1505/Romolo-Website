@@ -19,7 +19,7 @@ export function PhilosophySection() {
         </div>
       </div>
 
-      <Container size="wide" className="relative py-section">
+      <Container size="wide" className="relative pt-section">
         <span className={styles.manifestoWatermark} aria-hidden>Fatto a mano</span>
 
         <div className="relative grid gap-10 lg:grid-cols-12 lg:gap-8">
