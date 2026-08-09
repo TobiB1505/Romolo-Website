@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/motion/Reveal";
 import { CucinaDishStrip, type CucinaDish } from "@/components/home/CucinaDishStrip";
+import { CucinaRotatingGallery } from "@/components/home/CucinaRotatingGallery";
 import { menuGroups } from "@/lib/data/menu";
 import { aboutContent } from "@/lib/data/restaurant";
 import type { MenuItem } from "@/lib/types";
@@ -22,7 +23,10 @@ function getSignatureDishes(): MenuItem[] {
     .filter((item): item is MenuItem => Boolean(item));
 }
 
-/** Reihenfolge im Swipe-Streifen – die auffälligsten Teller zuerst. */
+/**
+ * Reihenfolge im Swipe-Streifen (Mobile/Tablet) bzw. Startreihenfolge der
+ * Rotation (Desktop) – die auffälligsten Teller zuerst.
+ */
 const cucinaDishes: CucinaDish[] = [
   {
     src: "/images/cucina/scampi-alla-griglia.jpg",
@@ -102,7 +106,8 @@ export function CucinaSection() {
             </div>
           </div>
 
-          <CucinaDishStrip dishes={cucinaDishes} className="lg:col-span-7" />
+          <CucinaDishStrip dishes={cucinaDishes} className="lg:col-span-7 lg:hidden" />
+          <CucinaRotatingGallery dishes={cucinaDishes} className="lg:col-span-7" />
         </div>
       </Container>
     </section>
