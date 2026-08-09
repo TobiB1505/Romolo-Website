@@ -1,5 +1,4 @@
 import { Container } from "@/components/Container";
-import { GoogleReviewsPanel } from "@/components/home/GoogleReviewsPanel";
 import { Reveal } from "@/components/motion/Reveal";
 import { homeContent } from "@/lib/data/restaurant";
 import styles from "./HomeEditorial.module.css";
@@ -7,7 +6,7 @@ import styles from "./HomeEditorial.module.css";
 export function PhilosophySection() {
   return (
     <section className={`${styles.philosophy} overflow-hidden bg-cream`}>
-      <Container size="wide" className="relative pt-section pb-5 sm:pb-8">
+      <Container size="wide" className="relative py-section">
         <span className={styles.manifestoWatermark} aria-hidden>Fatto a mano</span>
 
         <div className="relative grid gap-10 lg:grid-cols-12 lg:gap-8">
@@ -38,10 +37,6 @@ export function PhilosophySection() {
             </div>
           </Reveal>
         </div>
-
-        <Reveal delay={0.12}>
-          <GoogleReviewsPanel />
-        </Reveal>
       </Container>
     </section>
   );
