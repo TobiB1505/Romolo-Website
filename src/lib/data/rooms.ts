@@ -14,7 +14,7 @@ export const roomTourStops: RoomTourStop[] = [
     name: "Der Gewölbekeller",
     description:
       "Unter historischen Kreuzgewölben, mit Blick zur offenen Küche – unser Hauptraum für laue Abende zu zweit oder mit acht am runden Tisch.",
-    image: findGalleryImage("interior-2"),
+    image: findGalleryImage("interior-10"),
   },
   {
     id: "fensterplaetze",

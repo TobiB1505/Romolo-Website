@@ -6,7 +6,7 @@ import { homeContent } from "@/lib/data/restaurant";
 import { findGalleryImage } from "@/lib/data/gallery";
 import styles from "./HomeEditorial.module.css";
 
-const storyImage = findGalleryImage("interior-4");
+const storyImage = findGalleryImage("interior-13");
 const storyValues = [
   { number: "01", title: "Famiglia", text: "Persönlich, herzlich und immer mit Zeit für unsere Gäste." },
   { number: "02", title: "Cucina", text: "Italienische Klassiker, sorgfältig und saisonal gedacht." },
