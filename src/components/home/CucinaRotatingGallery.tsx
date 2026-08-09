@@ -13,11 +13,11 @@ export interface CucinaDish {
   label: string;
 }
 
-/** Slot-Geometrie und Bildgrößen entsprechen der bisherigen statischen Collage. */
+/** Slot-Klassen und Bildgrößen entsprechen dem Collage-Grid in HomeEditorial.module.css. */
 const slots = [
-  { className: styles.cucinaImageMain, sizes: "(min-width: 1024px) 35vw, 82vw" },
-  { className: styles.cucinaImageAccent, sizes: "(min-width: 1024px) 20vw, 46vw" },
-  { className: styles.cucinaImageDetail, sizes: "(min-width: 1024px) 19vw, 44vw" },
+  { className: styles.cucinaImageMain, sizes: "(min-width: 1024px) 34vw, 92vw" },
+  { className: styles.cucinaImageAccent, sizes: "(min-width: 1024px) 23vw, 46vw" },
+  { className: styles.cucinaImageDetail, sizes: "(min-width: 1024px) 23vw, 46vw" },
 ];
 
 /**
