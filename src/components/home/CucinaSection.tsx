@@ -40,7 +40,7 @@ export function CucinaSection() {
   const dishes = getSignatureDishes();
 
   return (
-    <section className={`${styles.cucina} overflow-hidden bg-forest-dark py-section text-cream`}>
+    <section id="cucina" data-home-section className={`${styles.cucina} scroll-anchor overflow-hidden bg-forest-dark py-section text-cream`}>
       <Container size="wide">
         <div className="grid gap-16 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">

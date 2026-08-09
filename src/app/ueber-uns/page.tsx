@@ -15,7 +15,6 @@ export const metadata: Metadata = {
   description: "Familiengeführtes italienisches Restaurant am Stadtplatz in Miesbach – gute Küche, herzliche Gastfreundschaft.",
 };
 
-const heroImage = findGalleryImage("interior-4");
 const mainImage = findGalleryImage("interior-6");
 const sideImage = findGalleryImage("exterior-1");
 
@@ -33,7 +32,6 @@ export default function UeberUnsPage() {
         eyebrow="Über uns"
         number="05"
         subtitle="Ein familiengeführtes Restaurant, entstanden aus der Liebe zu gutem Essen und guter Gesellschaft."
-        image={heroImage}
       />
 
       <Container size="wide" className="py-section">
@@ -73,7 +71,7 @@ export default function UeberUnsPage() {
         <Reveal>
           <div className={`${styles.aboutCta} mt-section-sm`}>
             <h2>Wir freuen uns<br />auf Ihren Besuch.</h2>
-            <Link href="/kontakt">Tisch reservieren <ArrowRight size={17} aria-hidden /></Link>
+            <Link href="/#prenotazione">Tisch reservieren <ArrowRight size={17} aria-hidden /></Link>
           </div>
         </Reveal>
       </Container>

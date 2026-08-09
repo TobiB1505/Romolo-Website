@@ -9,12 +9,18 @@ import { Container } from "./Container";
 import { restaurant } from "@/lib/data/restaurant";
 import styles from "./Header.module.css";
 
-const navItems = [
-  { href: "/", label: "Home" },
+interface NavItem {
+  href: string;
+  label: string;
+  section?: string;
+}
+
+const navItems: NavItem[] = [
+  { href: "/#cucina", label: "Cucina", section: "cucina" },
+  { href: "/#storia", label: "Storia", section: "storia" },
+  { href: "/#galleria", label: "Galleria", section: "galleria" },
   { href: "/speisekarte", label: "Speisekarte" },
-  { href: "/galerie", label: "Galerie" },
-  { href: "/ueber-uns", label: "Über uns" },
-  { href: "/kontakt", label: "Kontakt" },
+  { href: "/#prenotazione", label: "Reservieren", section: "prenotazione" },
 ];
 
 const MENU_ID = "mobile-navigation";
@@ -39,6 +45,7 @@ export function Header() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   /**
    * Overlay-Modus wird nicht per Prop gesetzt, sondern daran erkannt, ob die
@@ -125,6 +132,30 @@ export function Header() {
     closeMenu();
   }, [pathname, closeMenu]);
 
+  // Auf der langen Startseite folgt die Navigation dem Abschnitt, der sich
+  // gerade in der ruhigen Mitte des Viewports befindet.
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const sections = navItems
+      .map((item) => item.section ? document.getElementById(item.section) : null)
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+        if (visible[0]) setActiveSection(visible[0].target.id);
+      },
+      { rootMargin: "-28% 0px -62% 0px" }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [pathname]);
+
   const activeHero = hero !== null && hero.path === pathname ? hero : null;
   const isOverlay = activeHero !== null && !activeHero.past;
   const isCompact = activeHero !== null && activeHero.past;
@@ -157,12 +188,14 @@ export function Header() {
 
         <nav aria-label="Hauptnavigation" className={clsx("hidden md:flex", styles.desktopNav)}>
           {navItems.map((item, index) => {
-            const active = pathname === item.href;
+            const active = item.section
+              ? pathname === "/" && activeSection === item.section
+              : pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                aria-current={active ? "page" : undefined}
+                aria-current={active ? (item.section ? "location" : "page") : undefined}
                 className={clsx(
                   styles.desktopNavLink,
                   isOverlay
@@ -247,13 +280,15 @@ export function Header() {
               <p className={styles.menuEyebrow}>Navigation</p>
               <ol className={styles.menuList}>
                 {navItems.map((item, index) => {
-                  const active = pathname === item.href;
+                  const active = item.section
+                    ? pathname === "/" && activeSection === item.section
+                    : pathname === item.href;
                   return (
                     <li key={item.href} className="site-menu__item" style={{ "--i": index } as CSSProperties}>
                       <Link
                         href={item.href}
                         onClick={closeMenu}
-                        aria-current={active ? "page" : undefined}
+                        aria-current={active ? (item.section ? "location" : "page") : undefined}
                         className={clsx(styles.menuLink, active && styles.menuLinkActive)}
                       >
                         <span className={styles.menuNumber}>0{index + 1}</span>
@@ -276,7 +311,7 @@ export function Header() {
                 {restaurant.street}<br />
                 {restaurant.zip} {restaurant.city}
               </address>
-              <Link href="/kontakt" onClick={closeMenu} className={styles.reserveLink}>
+              <Link href="/#prenotazione" onClick={closeMenu} className={styles.reserveLink}>
                 Tisch reservieren <ArrowUpRight size={17} aria-hidden />
               </Link>
               <a href={restaurant.phoneHref} className={styles.callLink}>

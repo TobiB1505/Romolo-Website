@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/motion/Reveal";
 import { ImageReveal } from "@/components/motion/ImageReveal";
@@ -9,10 +7,15 @@ import { findGalleryImage } from "@/lib/data/gallery";
 import styles from "./HomeEditorial.module.css";
 
 const storyImage = findGalleryImage("interior-4");
+const storyValues = [
+  { number: "01", title: "Famiglia", text: "Persönlich, herzlich und immer mit Zeit für unsere Gäste." },
+  { number: "02", title: "Cucina", text: "Italienische Klassiker, sorgfältig und saisonal gedacht." },
+  { number: "03", title: "Ospitalità", text: "Ein Ort zum Ankommen, Bleiben und Wiederkommen." },
+];
 
 export function StorySection() {
   return (
-    <section className={`${styles.story} overflow-hidden bg-cream py-section`}>
+    <section id="storia" data-home-section className={`${styles.story} scroll-anchor overflow-hidden bg-cream py-section`}>
       <Container size="wide">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <Reveal className="lg:col-span-3">
@@ -36,10 +39,18 @@ export function StorySection() {
           <Reveal delay={0.18} className={styles.storyCard}>
             <span className={styles.quoteMark} aria-hidden>“</span>
             <p>{homeContent.storyText}</p>
-            <Link href="/ueber-uns" className={styles.darkArrowLink}>
-              Unsere Geschichte <ArrowUpRight size={16} aria-hidden />
-            </Link>
+            <span className={styles.storySignature}>Famiglia · Cucina · Ospitalità</span>
           </Reveal>
+        </div>
+
+        <div className={styles.storyValues}>
+          {storyValues.map((value, index) => (
+            <Reveal key={value.number} delay={index * 0.07} className={styles.storyValue}>
+              <span>{value.number}</span>
+              <h3>{value.title}</h3>
+              <p>{value.text}</p>
+            </Reveal>
+          ))}
         </div>
       </Container>
     </section>

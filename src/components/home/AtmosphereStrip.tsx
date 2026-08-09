@@ -1,19 +1,13 @@
-import Image from "next/image";
 import { Container } from "@/components/Container";
+import { GalleryExperience } from "@/components/gallery/GalleryExperience";
 import { Reveal } from "@/components/motion/Reveal";
 import { homeContent } from "@/lib/data/restaurant";
-import { findGalleryImage } from "@/lib/data/gallery";
+import { galleryImages } from "@/lib/data/gallery";
 import styles from "./HomeEditorial.module.css";
-
-const atmosphereImages = [
-  { image: findGalleryImage("exterior-1"), number: "01", label: "Il giardino" },
-  { image: findGalleryImage("interior-3"), number: "02", label: "La cantina" },
-  { image: findGalleryImage("interior-5"), number: "03", label: "La finestra" },
-];
 
 export function AtmosphereStrip() {
   return (
-    <section className={`${styles.atmosphere} overflow-hidden bg-ink-deep py-section text-cream`} aria-labelledby="atmosfera-heading">
+    <section id="galleria" data-home-section className={`${styles.atmosphere} scroll-anchor overflow-hidden bg-ink-deep py-section text-cream`} aria-labelledby="atmosfera-heading">
       <div className={styles.atmosphereMarquee} aria-hidden>
         <span>Atmosfera — Una sera da Romolo — Atmosfera — Una sera da Romolo —</span>
       </div>
@@ -36,26 +30,9 @@ export function AtmosphereStrip() {
         </div>
       </Container>
 
-      <div className={`${styles.atmosphereScroller} no-scrollbar mt-14 overflow-x-auto pb-4`}>
-        <ul className={styles.atmosphereRail}>
-          {atmosphereImages.map(({ image, number, label }, index) => (
-            <li key={image.src} className={index === 1 ? styles.atmosphereCardWide : styles.atmosphereCard}>
-              <div className={styles.atmosphereImageWrap}>
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes={index === 1 ? "(min-width: 1024px) 45vw, 82vw" : "(min-width: 1024px) 31vw, 72vw"}
-                  className={styles.editorialImage}
-                />
-              </div>
-              <div className={styles.atmosphereCaption}>
-                <span>{number}</span><i /><strong>{label}</strong>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Container size="wide" className={styles.homeGallery}>
+        <GalleryExperience images={galleryImages} />
+      </Container>
     </section>
   );
 }

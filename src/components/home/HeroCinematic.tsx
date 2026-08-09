@@ -161,7 +161,7 @@ export function HeroCinematic() {
                 Speisekarte entdecken
                 <ArrowRight size={16} aria-hidden className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
-              <Link href="/kontakt" className={styles.textLink}>
+              <Link href="#prenotazione" className={styles.textLink}>
                 Tisch reservieren
               </Link>
             </div>

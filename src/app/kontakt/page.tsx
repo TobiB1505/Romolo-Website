@@ -6,15 +6,12 @@ import { ReservationForm } from "@/components/ReservationForm";
 import { MapEmbed } from "@/components/MapEmbed";
 import { Reveal } from "@/components/motion/Reveal";
 import { restaurant } from "@/lib/data/restaurant";
-import { findGalleryImage } from "@/lib/data/gallery";
 import styles from "../InteriorPages.module.css";
 
 export const metadata: Metadata = {
   title: "Kontakt & Reservierung",
   description: "Tisch reservieren im Ristorante da Romolo in Miesbach – per Formular oder telefonisch unter +49 8025 9978676.",
 };
-
-const heroImage = findGalleryImage("interior-5");
 
 export default function KontaktPage() {
   return (
@@ -24,7 +21,6 @@ export default function KontaktPage() {
         eyebrow="Kontakt & Reservierung"
         number="06"
         subtitle="Ihr Tisch bei Romolo – fragen Sie Ihren Wunschtermin online an oder rufen Sie uns direkt an."
-        image={heroImage}
       />
 
       <Container size="wide" className="py-section">

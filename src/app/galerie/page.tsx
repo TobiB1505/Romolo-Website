@@ -3,15 +3,13 @@ import { Container } from "@/components/Container";
 import { InteriorPageHero } from "@/components/InteriorPageHero";
 import { GalleryExperience } from "@/components/gallery/GalleryExperience";
 import { Reveal } from "@/components/motion/Reveal";
-import { galleryImages, findGalleryImage } from "@/lib/data/gallery";
+import { galleryImages } from "@/lib/data/gallery";
 import styles from "../InteriorPages.module.css";
 
 export const metadata: Metadata = {
   title: "Galerie",
   description: "Impressionen aus dem Ristorante da Romolo in Miesbach: Gewölbekeller, Gastraum und Innenhof.",
 };
-
-const heroImage = findGalleryImage("interior-3");
 
 export default function GaleriePage() {
   return (
@@ -21,7 +19,6 @@ export default function GaleriePage() {
         eyebrow="Räume & Momente"
         number="04"
         subtitle="Ein Abend bei Romolo lebt von den kleinen Augenblicken – warmes Licht, gedeckte Tische und Zeit füreinander."
-        image={heroImage}
       />
 
       <Container size="wide" className="py-section">

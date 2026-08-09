@@ -1,8 +1,6 @@
-import Image from "next/image";
 import { ArrowDown } from "lucide-react";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/motion/Reveal";
-import type { GalleryImage } from "@/lib/types";
 import styles from "./InteriorPageHero.module.css";
 
 interface InteriorPageHeroProps {
@@ -10,15 +8,14 @@ interface InteriorPageHeroProps {
   subtitle: string;
   eyebrow: string;
   number: string;
-  image: GalleryImage;
 }
 
-export function InteriorPageHero({ title, subtitle, eyebrow, number, image }: InteriorPageHeroProps) {
+export function InteriorPageHero({ title, subtitle, eyebrow, number }: InteriorPageHeroProps) {
   return (
     <>
-      <section className={`${styles.hero} relative isolate flex min-h-[78svh] items-end overflow-hidden bg-ink-deep text-cream`}>
-        <Image src={image.src} alt={image.alt} fill loading="eager" sizes="100vw" className={styles.image} />
-        <div className={styles.shade} aria-hidden />
+      <section className={`${styles.hero} relative isolate flex items-end overflow-hidden text-cream`}>
+        <div className={styles.glow} aria-hidden />
+        <span className={styles.monogram} aria-hidden>{title.charAt(0)}</span>
         <div className={styles.grain} aria-hidden />
 
         <Container size="wide" className="relative z-10 pb-12 pt-32 lg:pb-16">
