@@ -24,12 +24,12 @@ function getSignatureDishes(): MenuItem[] {
 }
 
 const pastaImage = {
-  src: "/images/categories/pasta.png",
-  alt: "Italienisches Pastagericht mit Basilikum, Parmesan und frischen Zutaten",
+  src: "/images/cucina/spaghetti-frutti-di-mare.png",
+  alt: "Spaghetti Frutti di Mare mit Garnelen und Muscheln im warm beleuchteten Restaurant",
 };
 const dessertImage = {
-  src: "/images/categories/dolci.png",
-  alt: "Italienische Desserts mit Tiramisù, Cannoli und Espresso",
+  src: "/images/cucina/tiramisu.png",
+  alt: "Klassisches Tiramisù mit Espresso im warm beleuchteten Restaurant",
 };
 
 export function CucinaSection() {
