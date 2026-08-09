@@ -317,7 +317,10 @@ export function Header() {
                 Tisch reservieren <ArrowUpRight size={17} aria-hidden />
               </Link>
               <a href={restaurant.phoneHref} className={styles.callLink}>
-                <Phone size={15} aria-hidden /> {restaurant.phone}
+                <span className="inline-flex items-center gap-[0.6rem]">
+                  <Phone size={15} aria-hidden /> {restaurant.phone}
+                </span>
+                <ArrowUpRight size={17} aria-hidden />
               </a>
             </aside>
           </div>

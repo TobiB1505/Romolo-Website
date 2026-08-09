@@ -237,36 +237,50 @@
 .menuAside h2 { margin-top: 1rem; font-family: var(--font-display), Georgia, serif; font-size: clamp(2rem, 3.5vw, 3.4rem); font-style: italic; font-weight: 400; line-height: 0.98; }
 .menuAside address { margin-top: 1.5rem; color: rgb(250 244 233 / 0.52); font-size: 0.76rem; font-style: normal; line-height: 1.7; }
 
-.reserveLink {
+/*
+ * Reservieren und Anrufen sind die zwei gleichwertigen Handlungsoptionen
+ * dieser Ecke – deshalb identische Pille (Höhe, Form, Icon rechts), nur die
+ * Füllung unterscheidet Primär- (voll) von Sekundäraktion (outline), analog
+ * zu .headerCall/.headerCallOverlay im Desktop-Header.
+ */
+.reserveLink,
+.callLink {
   display: flex;
   min-height: 3.25rem;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-top: 1.75rem;
   border-radius: 999px;
   padding: 0 1.25rem;
-  background: var(--color-terracotta);
-  color: var(--color-cream);
   font-size: 0.73rem;
-  transition: background-color 200ms ease, gap 200ms ease;
+  transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease, color 200ms ease, gap 200ms ease;
 }
 
-.reserveLink:hover { gap: 1.35rem; background: var(--color-terracotta-dark); }
+/* Gold statt Terracotta: auf dunklem Grund ist Gold die Primär-CTA-Farbe
+   der Seite (siehe .formDark .button im Reservierungsformular und
+   .cucinaMenuButton) – Terracotta bleibt den hellen Flächen vorbehalten. */
+.reserveLink {
+  margin-top: 1.75rem;
+  background: var(--color-gold);
+  box-shadow: 0 18px 38px -24px rgb(201 154 62 / 0.85);
+  color: var(--color-forest-dark);
+}
+
+.reserveLink:hover { gap: 1.35rem; background: var(--color-cream); box-shadow: 0 22px 42px -24px rgb(201 154 62 / 0.75); }
+
+/* Gleiche Farblogik wie .headerCallOverlay im Desktop-Header – derselbe
+   Anruf-Button, nur an einer anderen Stelle. */
+.callLink {
+  margin-top: 0.85rem;
+  border: 1px solid rgb(250 244 233 / 0.3);
+  background: rgb(250 244 233 / 0.08);
+  color: var(--color-cream);
+}
+
+.callLink:hover { gap: 1.35rem; border-color: var(--color-cream); background: var(--color-cream); color: var(--color-ink-deep); }
+
 .reserveLink:focus-visible,
 .callLink:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
-
-.callLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 1rem;
-  color: rgb(250 244 233 / 0.56);
-  font-size: 0.68rem;
-  transition: color 200ms ease;
-}
-
-.callLink:hover { color: var(--color-cream); }
 
 .menuFoot {
   display: flex;

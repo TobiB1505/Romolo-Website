@@ -107,7 +107,14 @@
  * lg-Breakpoint übernimmt stattdessen die rotierende Collage unten.
  */
 .cucinaStrip { display: flex; gap: clamp(1rem, 2vw, 1.5rem); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 1.5rem; }
-.cucinaStripCard { position: relative; flex: 0 0 auto; width: 27%; aspect-ratio: 4 / 5; scroll-snap-align: start; }
+.cucinaStripCard {
+  position: relative;
+  flex: 0 0 auto;
+  width: 27%;
+  aspect-ratio: 4 / 5;
+  scroll-snap-align: start;
+  border: 2px solid rgb(250 244 233 / 0.6);
+}
 
 /*
  * Desktop: überlappende Absolut-Collage – großes Hochformat rechts, zwei
