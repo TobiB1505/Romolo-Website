@@ -27,6 +27,10 @@ const pastaImage = {
   src: "/images/cucina/spaghetti-frutti-di-mare.png",
   alt: "Spaghetti Frutti di Mare mit Garnelen und Muscheln im warm beleuchteten Restaurant",
 };
+const pizzaImage = {
+  src: "/images/cucina/pizza-buffalina.png",
+  alt: "Pizza Buffalina mit Mozzarella und Basilikum vor dem warm leuchtenden Steinofen",
+};
 const dessertImage = {
   src: "/images/cucina/tiramisu.png",
   alt: "Klassisches Tiramisù mit Espresso im warm beleuchteten Restaurant",
@@ -79,11 +83,15 @@ export function CucinaSection() {
           </div>
 
           <div className={`${styles.cucinaGallery} lg:col-span-7`}>
-            <ImageReveal className={`${styles.cucinaImageMain} relative overflow-hidden`}>
+            <ImageReveal className={`${styles.cucinaImageMain} overflow-hidden`}>
               <Image src={pastaImage.src} alt={pastaImage.alt} fill sizes="(min-width: 1024px) 35vw, 82vw" className={styles.editorialImage} />
               <span className={styles.imageCaption}>Pasta fatta con amore</span>
             </ImageReveal>
-            <ImageReveal delay={0.14} className={`${styles.cucinaImageAccent} relative overflow-hidden`}>
+            <ImageReveal delay={0.12} className={`${styles.cucinaImageAccent} overflow-hidden`}>
+              <Image src={pizzaImage.src} alt={pizzaImage.alt} fill sizes="(min-width: 1024px) 20vw, 46vw" className={styles.editorialImage} />
+              <span className={styles.imageCaption}>Dal forno</span>
+            </ImageReveal>
+            <ImageReveal delay={0.2} className={`${styles.cucinaImageDetail} overflow-hidden`}>
               <Image src={dessertImage.src} alt={dessertImage.alt} fill sizes="(min-width: 1024px) 19vw, 44vw" className={styles.editorialImage} />
               <span className={styles.imageCaption}>Dolce finale</span>
             </ImageReveal>
