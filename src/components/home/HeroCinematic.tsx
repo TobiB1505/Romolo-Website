@@ -112,8 +112,7 @@ export function HeroCinematic() {
               fill
               preload
               sizes="100vw"
-              className="object-cover"
-              style={{ objectPosition: "45% 58%" }}
+              className={styles.heroImage}
             />
           </m.div>
         </div>

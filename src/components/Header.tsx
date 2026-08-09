@@ -139,20 +139,24 @@ export function Header() {
       )}
     >
       <Container
+        size="wide"
         className={clsx(
+          styles.headerInner,
           "flex items-center justify-between transition-[height] duration-300",
+          isOverlay && styles.headerInnerOverlay,
           isCompact ? "h-16" : "h-20"
         )}
       >
         <Link
           href="/"
-          className="font-display text-lg tracking-tight transition-opacity hover:opacity-70 sm:text-xl"
+          className={styles.brandLink}
         >
-          Ristorante da Romolo
+          <span className={styles.brandEyebrow}>Ristorante</span>
+          <span className={styles.brandName}>da Romolo</span>
         </Link>
 
-        <nav aria-label="Hauptnavigation" className="hidden items-center gap-9 md:flex">
-          {navItems.map((item) => {
+        <nav aria-label="Hauptnavigation" className={clsx("hidden md:flex", styles.desktopNav)}>
+          {navItems.map((item, index) => {
             const active = pathname === item.href;
             return (
               <Link
@@ -160,7 +164,7 @@ export function Header() {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={clsx(
-                  "group relative py-1 text-sm tracking-wide transition-colors",
+                  styles.desktopNavLink,
                   isOverlay
                     ? "text-cream/80 hover:text-cream"
                     : active
@@ -168,18 +172,19 @@ export function Header() {
                       : "text-ink-soft hover:text-ink"
                 )}
               >
-                {item.label}
+                <span className={styles.desktopNavNumber}>0{index + 1}</span>
+                <span>{item.label}</span>
                 <span
                   aria-hidden
                   className={clsx(
-                    "absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-current transition-transform duration-200 ease-out group-hover:scale-x-100",
-                    active && "scale-x-100"
+                    styles.desktopNavRule,
+                    active && styles.desktopNavRuleActive
                   )}
                 />
               </Link>
             );
           })}
-          <a href={restaurant.phoneHref} className="btn-primary px-5 py-2.5">
+          <a href={restaurant.phoneHref} className={clsx("btn-primary", styles.headerCall)}>
             <Phone size={15} aria-hidden /> Anrufen
           </a>
         </nav>

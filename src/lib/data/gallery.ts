@@ -16,10 +16,10 @@ export const galleryImages: GalleryImage[] = [
 ];
 
 export const heroImage: GalleryImage = {
-  src: "/images/gallery/interior-2.jpg",
-  alt: "Gewölbekeller-Gastraum des Ristorante da Romolo mit gedeckten Tischen",
-  width: 1198,
-  height: 1360,
+  src: "/images/gallery/hero-evening-v2.png",
+  alt: "Abendlich beleuchteter Gewölbekeller des Ristorante da Romolo mit gedecktem Tisch",
+  width: 1672,
+  height: 941,
 };
 
 /**

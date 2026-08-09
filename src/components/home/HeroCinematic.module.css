@@ -2,12 +2,14 @@
   perspective: 1800px;
 }
 
+.heroImage { object-fit: cover; object-position: center; }
+
 .ambientGlow {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 68% 42%, rgb(238 178 91 / 0.24), transparent 35%),
-    linear-gradient(90deg, rgb(23 17 13 / 0.86) 0%, rgb(23 17 13 / 0.42) 48%, rgb(23 17 13 / 0.18) 100%);
+    radial-gradient(circle at 70% 42%, rgb(238 178 91 / 0.1), transparent 35%),
+    linear-gradient(90deg, rgb(23 17 13 / 0.8) 0%, rgb(23 17 13 / 0.34) 48%, rgb(23 17 13 / 0.12) 100%);
 }
 
 .vignette {
@@ -390,6 +392,8 @@
 }
 
 @media (max-width: 40rem) {
+  .heroImage { object-position: 67% center; }
+
   .doorMoulding {
     left: 1.5rem;
     right: 1.5rem;
