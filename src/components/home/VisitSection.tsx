@@ -15,7 +15,7 @@ export function VisitSection() {
       <Container size="wide">
         <Reveal>
           <div className={styles.sectionIndex}>
-            <span>06</span><i /><span>Arrivederci</span>
+            <span>07</span><i /><span>Arrivederci</span>
           </div>
         </Reveal>
 
