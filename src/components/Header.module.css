@@ -253,16 +253,20 @@
   border-radius: 999px;
   padding: 0 1.25rem;
   font-size: 0.73rem;
-  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, gap 200ms ease;
+  transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease, color 200ms ease, gap 200ms ease;
 }
 
+/* Gold statt Terracotta: auf dunklem Grund ist Gold die Primär-CTA-Farbe
+   der Seite (siehe .formDark .button im Reservierungsformular und
+   .cucinaMenuButton) – Terracotta bleibt den hellen Flächen vorbehalten. */
 .reserveLink {
   margin-top: 1.75rem;
-  background: var(--color-terracotta);
-  color: var(--color-cream);
+  background: var(--color-gold);
+  box-shadow: 0 18px 38px -24px rgb(201 154 62 / 0.85);
+  color: var(--color-forest-dark);
 }
 
-.reserveLink:hover { gap: 1.35rem; background: var(--color-terracotta-dark); }
+.reserveLink:hover { gap: 1.35rem; background: var(--color-cream); box-shadow: 0 22px 42px -24px rgb(201 154 62 / 0.75); }
 
 /* Gleiche Farblogik wie .headerCallOverlay im Desktop-Header – derselbe
    Anruf-Button, nur an einer anderen Stelle. */
