@@ -38,9 +38,47 @@
 .desktopNavRuleActive { transform: scaleX(1); }
 
 .headerCall {
+  display: inline-flex;
   min-height: 2.7rem;
-  padding: 0 1.25rem;
-  box-shadow: 0 10px 30px -18px rgb(164 74 34 / 0.85);
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border: 1px solid;
+  border-radius: 999px;
+  padding: 0 1.15rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background-color 200ms ease, border-color 200ms ease,
+    color 200ms ease, transform 200ms ease;
+}
+
+.headerCall:hover { transform: translateY(-1px); }
+.headerCall:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
+
+.headerCallOverlay {
+  border-color: rgb(250 244 233 / 0.3);
+  background: rgb(250 244 233 / 0.08);
+  color: var(--color-cream);
+  backdrop-filter: blur(12px);
+}
+
+.headerCallOverlay:hover {
+  border-color: var(--color-cream);
+  background: var(--color-cream);
+  color: var(--color-ink-deep);
+}
+
+.headerCallSolid {
+  border-color: rgb(43 36 32 / 0.2);
+  background: transparent;
+  color: var(--color-ink);
+}
+
+.headerCallSolid:hover {
+  border-color: var(--color-terracotta);
+  color: var(--color-terracotta);
 }
 
 .menuTrigger {

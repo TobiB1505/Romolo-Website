@@ -184,7 +184,13 @@ export function Header() {
               </Link>
             );
           })}
-          <a href={restaurant.phoneHref} className={clsx("btn-primary", styles.headerCall)}>
+          <a
+            href={restaurant.phoneHref}
+            className={clsx(
+              styles.headerCall,
+              isOverlay ? styles.headerCallOverlay : styles.headerCallSolid
+            )}
+          >
             <Phone size={15} aria-hidden /> Anrufen
           </a>
         </nav>

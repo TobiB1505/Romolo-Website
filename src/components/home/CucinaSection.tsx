@@ -75,7 +75,7 @@ export function CucinaSection() {
               )}
 
               <Reveal delay={0.25}>
-                <Link href="/speisekarte" className={`${styles.lightArrowLink} mt-9`}>
+                <Link href="/speisekarte" className={styles.cucinaMenuButton}>
                   Ganze Speisekarte <ArrowRight size={16} aria-hidden />
                 </Link>
               </Reveal>

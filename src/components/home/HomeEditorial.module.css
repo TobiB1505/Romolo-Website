@@ -121,6 +121,39 @@
 .signatureList li strong { color: var(--color-gold); font-weight: 500; font-variant-numeric: tabular-nums; }
 .dishNumber { color: rgb(250 244 233 / 0.3); font-size: 0.6rem; }
 
+.cucinaMenuButton {
+  display: inline-flex;
+  min-height: 3.35rem;
+  margin-top: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  border: 1px solid rgb(250 244 233 / 0.22);
+  border-radius: 999px;
+  padding: 0 1.5rem;
+  background: var(--color-gold);
+  box-shadow: 0 18px 40px -24px rgb(201 154 62 / 0.85);
+  color: var(--color-forest-dark);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition: background-color 240ms ease, border-color 240ms ease,
+    box-shadow 240ms ease, color 240ms ease, transform 240ms ease;
+}
+
+.cucinaMenuButton svg { transition: transform 240ms ease; }
+
+.cucinaMenuButton:hover {
+  border-color: var(--color-cream);
+  background: var(--color-cream);
+  box-shadow: 0 22px 45px -24px rgb(250 244 233 / 0.7);
+  transform: translateY(-2px);
+}
+
+.cucinaMenuButton:hover svg { transform: translateX(0.25rem); }
+.cucinaMenuButton:focus-visible { outline: 2px solid var(--color-cream); outline-offset: 4px; }
+
 .cucinaGallery { position: relative; min-height: clamp(48rem, 68vw, 60rem); }
 .cucinaImageMain { position: absolute; z-index: 1; top: 0; right: 0; width: 72%; aspect-ratio: 2 / 3; }
 .cucinaImageAccent { position: absolute; z-index: 2; bottom: 2%; left: 0; width: 42%; aspect-ratio: 2 / 3; border: 0.75rem solid var(--color-forest-dark); }
