@@ -23,6 +23,8 @@ export const duration = {
   hero: 1.6,
   /** Crossfade beim Wechsel des Category-Mood-Bilds in der Speisekarte. */
   categoryChange: 0.45,
+  /** Crossfade der rotierenden Gerichte-Fotos in der Cucina-Sektion (Desktop). */
+  dishRotation: 1.2,
 } as const;
 
 export const easing = {
@@ -76,6 +78,14 @@ export const heroSequence = {
   cta: 1.3,
   scrollCue: 1.6,
 } as const;
+
+/**
+ * Abstand zwischen zwei Bildwechseln der Cucina-Rotation (Desktop), in
+ * Millisekunden. Pro Tick wechselt genau ein Slot; bei drei Slots steht
+ * jedes Bild damit rund dreimal so lange, und es ist nie mehr als ein
+ * Wechsel gleichzeitig im Bild.
+ */
+export const dishRotationIntervalMs = 4200;
 
 /** Vergrößerungsfaktor, aus dem das Hero-Bild beim Laden herauszoomt. */
 export const heroImageScale = 1.055;
