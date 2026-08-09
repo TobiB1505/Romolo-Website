@@ -264,13 +264,16 @@
 
 .reserveLink:hover { gap: 1.35rem; background: var(--color-terracotta-dark); }
 
+/* Gleiche Farblogik wie .headerCallOverlay im Desktop-Header – derselbe
+   Anruf-Button, nur an einer anderen Stelle. */
 .callLink {
   margin-top: 0.85rem;
-  border: 1px solid rgb(250 244 233 / 0.28);
-  color: rgb(250 244 233 / 0.85);
+  border: 1px solid rgb(250 244 233 / 0.3);
+  background: rgb(250 244 233 / 0.08);
+  color: var(--color-cream);
 }
 
-.callLink:hover { gap: 1.35rem; border-color: var(--color-cream); color: var(--color-cream); background: rgb(250 244 233 / 0.06); }
+.callLink:hover { gap: 1.35rem; border-color: var(--color-cream); background: var(--color-cream); color: var(--color-ink-deep); }
 
 .reserveLink:focus-visible,
 .callLink:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
