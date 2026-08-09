@@ -1531,8 +1531,7 @@
   translate: -50% 0;
 }
 
-.storyBookDesktopSheet,
-.storyBookMobileSheet {
+.storyBookDesktopSheet {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -1902,20 +1901,15 @@
 
   .storyBookMobile {
     position: absolute;
-    /* Die 3D-Blätter erweitern in Browser-Engines die visuelle Referenzbox nach oben.
-       Der feste Ausgleich hält die physische Seite unabhängig vom Blattwinkel
-       unterhalb der transparenten Kopfzeile. */
-    top: calc(clamp(8rem, 18svh, 10rem) + 12.5rem);
+    top: 50%;
     right: 0;
     left: 0;
     z-index: 8;
     display: block;
-    width: min(86vw, calc(68svh * 0.7), 24rem);
+    width: min(calc(100vw - 2rem), calc(70svh - 10.5rem), 24rem);
     aspect-ratio: 0.7;
     margin-inline: auto;
-    perspective: none;
-    transform-style: flat;
-    transition: opacity 180ms ease;
+    translate: 0 -48%;
   }
 
   .storyBookMobileBase {
@@ -1924,10 +1918,18 @@
     border-radius: 0.2rem 0.55rem 0.55rem 0.2rem;
   }
 
-  .storyBookMobileSheet {
-    left: 0;
-    width: 100%;
+  .storyBookMobilePage {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 0.2rem 0.55rem 0.55rem 0.2rem;
+    background: #f8f0e1;
     filter: drop-shadow(0 22px 24px rgb(0 0 0 / 0.32));
+  }
+
+  .storyBookMobilePage > * {
+    width: 100%;
+    height: 100%;
   }
 
   .storyBookIntro {
@@ -1935,7 +1937,7 @@
   }
 
   .storyBookListButton {
-    top: 17.75rem;
+    top: calc(var(--header-h) + 0.75rem);
     right: 1rem;
     min-height: 2.25rem;
     padding: 0 0.75rem;
@@ -1948,7 +1950,7 @@
   .storyBookChapters {
     top: auto;
     right: 0;
-    bottom: -7.7rem;
+    bottom: calc(4.5rem + env(safe-area-inset-bottom));
     left: 0;
     display: flex;
     gap: 0.35rem;
@@ -1980,8 +1982,8 @@
   }
 
   .storyBookProgress {
-    bottom: -11.5rem;
-    min-width: min(17.5rem, calc(100vw - 5rem));
+    bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    min-width: min(18rem, calc(100vw - 2rem));
   }
 
   .storyBookScrollCue {
@@ -2047,21 +2049,15 @@
 }
 
 @media (max-width: 40rem) and (max-height: 46rem) {
-  .storyBookMobile {
-    top: 19.5rem;
-    width: min(72vw, calc(62svh * 0.7));
-  }
-
   .storyBookChapters {
-    bottom: -8.25rem;
+    bottom: calc(4.15rem + env(safe-area-inset-bottom));
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .storyBookDesktop,
   .storyBookMobile,
-  .storyBookDesktopSheet,
-  .storyBookMobileSheet {
+  .storyBookDesktopSheet {
     transition: none !important;
   }
 }

@@ -108,7 +108,7 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
         className={styles.storyBookTrack}
         style={{
           "--book-turns": turnCount,
-          "--book-track-height": `${100 + turnCount * (isMobile ? 62 : 74)}svh`,
+          "--book-track-height": `${100 + turnCount * (isMobile ? 90 : 74)}svh`,
         } as CSSProperties}
         aria-label="Interaktive Speisekarte"
       >
@@ -185,26 +185,21 @@ export function MenuBookExperience({ pages, groups }: MenuBookExperienceProps) {
           <div
             className={styles.storyBookMobile}
             aria-hidden={!isMobile}
-            style={{ opacity: activeTurn >= turnCount ? 0 : 1, pointerEvents: activeTurn >= turnCount ? "none" : "auto" }}
           >
             <div className={styles.storyBookMobileBase} />
-            <TurningSheet index={0} total={pages.length + 1} position={bookPosition} className={styles.storyBookMobileSheet} reducedMotion={Boolean(prefersReducedMotion)}>
-              <CoverFront />
-              <InsideCover />
-            </TurningSheet>
-            {pages.map((page, index) => (
-              <TurningSheet
-                key={page.id}
-                index={index + 1}
-                total={pages.length + 1}
-                position={bookPosition}
-                className={styles.storyBookMobileSheet}
-                reducedMotion={Boolean(prefersReducedMotion)}
-              >
-                <BookPage page={page} pageNumber={index + 1} />
-                <BlankPage />
-              </TurningSheet>
-            ))}
+            <m.div
+              key={activeTurn}
+              className={styles.storyBookMobilePage}
+              initial={{ opacity: 0, x: prefersReducedMotion ? 0 : 14 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+            >
+              {activeTurn === 0
+                ? <CoverFront />
+                : activePage
+                  ? <BookPage page={activePage} pageNumber={activePageIndex + 1} />
+                  : <BlankPage />}
+            </m.div>
           </div>
 
           <div className={styles.storyBookProgress} aria-live="polite">
