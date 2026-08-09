@@ -1,8 +1,10 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/Container";
-import { GalleryExperience } from "@/components/gallery/GalleryExperience";
+import { RoomTour } from "@/components/home/RoomTour";
 import { Reveal } from "@/components/motion/Reveal";
 import { homeContent } from "@/lib/data/restaurant";
-import { galleryImages } from "@/lib/data/gallery";
+import { roomTourStops } from "@/lib/data/rooms";
 import styles from "./HomeEditorial.module.css";
 
 export function AtmosphereStrip() {
@@ -25,13 +27,20 @@ export function AtmosphereStrip() {
             </h2>
           </Reveal>
           <Reveal delay={0.14}>
-            <p className="max-w-xs text-sm leading-relaxed text-cream/48">Drei Räume, viele Abende – und immer ein Platz, an dem die Zeit etwas langsamer vergeht.</p>
+            <p className="max-w-xs text-sm leading-relaxed text-cream/48">Vier Räume, viele Abende – wischen Sie sich durch und finden Sie Ihren Lieblingsplatz.</p>
           </Reveal>
         </div>
       </Container>
 
       <Container size="wide" className={styles.homeGallery}>
-        <GalleryExperience images={galleryImages} />
+        <Reveal delay={0.08}>
+          <RoomTour stops={roomTourStops} />
+        </Reveal>
+        <Reveal delay={0.14}>
+          <Link href="/galerie" className="mt-8 inline-flex items-center gap-2 text-sm text-cream/60 transition-colors hover:text-cream">
+            Alle Eindrücke in der Galerie <ArrowRight size={15} aria-hidden />
+          </Link>
+        </Reveal>
       </Container>
     </section>
   );

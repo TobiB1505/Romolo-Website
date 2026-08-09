@@ -24,6 +24,14 @@ export interface GalleryImage {
   height: number;
 }
 
+export interface RoomTourStop {
+  id: string;
+  number: string;
+  name: string;
+  description: string;
+  image: GalleryImage;
+}
+
 export interface RestaurantSettings {
   name: string;
   tagline: string;

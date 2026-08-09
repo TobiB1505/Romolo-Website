@@ -158,6 +158,29 @@
 .atmosphereMarquee span { display: inline-block; animation: atmosphere-drift 40s linear infinite; }
 .homeGallery { position: relative; margin-top: clamp(3rem, 6vw, 5.5rem); }
 
+/*
+ * Rundgang: ein Raum pro Bildschirm statt Foto-Grid – auf dem Handy soll
+ * sich das Wischen wie ein Schritt in den nächsten Raum anfühlen, nicht
+ * wie das Blättern durch eine Bildersammlung.
+ */
+.roomTourTrack { display: flex; gap: clamp(1rem, 2vw, 1.5rem); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 1.5rem; }
+.roomTourStop { position: relative; flex: 0 0 auto; width: 34%; aspect-ratio: 3 / 4; scroll-snap-align: start; background: var(--color-ink); }
+.roomTourShade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 42%, rgb(15 12 10 / 0.88) 100%); pointer-events: none; }
+.roomTourCaption { position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; display: flex; flex-direction: column; gap: 0.4rem; padding: clamp(1.25rem, 3vw, 2rem); }
+.roomTourCount { color: var(--color-gold); font-size: 0.62rem; font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: 0.16em; text-transform: uppercase; }
+.roomTourName { color: var(--color-cream); font-family: var(--font-display), Georgia, serif; font-size: clamp(1.7rem, 3vw, 2.35rem); font-style: italic; line-height: 1.05; }
+.roomTourDesc { max-width: 26rem; color: rgb(250 244 233 / 0.72); font-size: 0.82rem; line-height: 1.6; }
+
+.roomTourControls { display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem; }
+.roomTourDots { display: flex; gap: 0.5rem; }
+.roomTourDot { height: 2px; width: 1.5rem; background: rgb(250 244 233 / 0.25); transition: background-color 240ms ease, width 240ms ease; }
+.roomTourDotActive { width: 2.5rem; background: var(--color-gold); }
+
+.roomTourNav { display: flex; gap: 0.6rem; }
+.roomTourNav button { display: flex; height: 2.75rem; width: 2.75rem; align-items: center; justify-content: center; border: 1px solid rgb(250 244 233 / 0.2); border-radius: 50%; color: var(--color-cream); transition: border-color 200ms ease, background-color 200ms ease; }
+.roomTourNav button:hover:not(:disabled) { border-color: var(--color-gold); background: rgb(201 154 62 / 0.12); }
+.roomTourNav button:disabled { cursor: default; opacity: 0.3; }
+
 .visit { position: relative; }
 .visit::after { content: "ROMOLO"; position: absolute; right: -0.04em; bottom: -0.2em; color: rgb(43 36 32 / 0.025); font-family: var(--font-display); font-size: clamp(8rem, 25vw, 24rem); line-height: 0.8; pointer-events: none; }
 .visitHeader { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(18rem, 0.6fr); gap: clamp(2rem, 7vw, 7rem); align-items: end; margin-top: 2.5rem; }
@@ -200,6 +223,8 @@
   .visitHeader, .reservationLayout { grid-template-columns: 1fr; }
   .visitLead { max-width: 38rem; }
   .visitAside { border-top: 1px solid rgb(250 244 233 / 0.12); border-left: 0; }
+  .roomTourStop { width: 52%; }
+  .roomTourNav { display: none; }
 }
 
 @media (max-width: 39.999rem) {
@@ -214,6 +239,8 @@
   .storyValues { grid-template-columns: 1fr; }
   .storyValue { border-right: 0; border-bottom: 1px solid var(--color-hairline); }
   .reservationLayout { margin-right: -1.5rem; margin-left: -1.5rem; }
+  .roomTourTrack { margin-right: -1.5rem; margin-left: -1.5rem; padding-right: 1.5rem; padding-left: 1.5rem; }
+  .roomTourStop { width: 84%; aspect-ratio: 4 / 5; }
 }
 
 @media (prefers-reduced-motion: reduce) {
