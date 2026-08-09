@@ -2,8 +2,14 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useReducedMotion } from "motion/react";
+import { BookOpen, List } from "lucide-react";
 import { CategoryRail } from "@/components/menu/CategoryRail";
 import { CategoryMoodImage } from "@/components/menu/CategoryMoodImage";
+import {
+  BOOK_EXPERIENCE_ENABLED,
+  useMenuView,
+  type MenuView,
+} from "@/components/menu/MenuViewProvider";
 import type { MenuVisualGroup } from "@/lib/data/menuPresentation";
 import styles from "./MenuExperience.module.css";
 
@@ -23,8 +29,16 @@ interface MenuExplorerProps {
  */
 export function MenuExplorer({ groups, children }: MenuExplorerProps) {
   const prefersReducedMotion = useReducedMotion();
+  const { view, setView } = useMenuView();
   const [activeId, setActiveId] = useState(groups[0]?.id ?? "");
   const activeIdRef = useRef(activeId);
+
+  function selectView(nextView: MenuView) {
+    setView(nextView);
+    if (nextView === "book") {
+      window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" }));
+    }
+  }
 
   // Ref-Synchronisation gehört in einen Effect, nicht in den Render-Body
   // (Refs sind für Rendering irrelevant und dürfen dort nicht geschrieben
@@ -104,7 +118,19 @@ export function MenuExplorer({ groups, children }: MenuExplorerProps) {
   }, [activeId, prefersReducedMotion]);
 
   return (
-    <div className={styles.menuExplorer}>
+    <div className={styles.menuExplorer} data-menu-view={view}>
+      {BOOK_EXPERIENCE_ENABLED && (
+        <div className={styles.viewControls} role="group" aria-label="Darstellung der Speisekarte">
+          <span>Ansicht</span>
+          <ViewButton view="book" activeView={view} onSelect={selectView} icon={<BookOpen size={15} aria-hidden />}>
+            Buch
+          </ViewButton>
+          <ViewButton view="editorial" activeView={view} onSelect={selectView} icon={<List size={15} aria-hidden />}>
+            Liste
+          </ViewButton>
+        </div>
+      )}
+
       {/* Mobile/Tablet: horizontale Rail, sticky direkt unter der Kopfzeile. */}
       <div
         className={`${styles.mobileRail} sticky z-30 -mx-6 lg:hidden`}
@@ -130,5 +156,32 @@ export function MenuExplorer({ groups, children }: MenuExplorerProps) {
         <div className={styles.menuContent}>{children}</div>
       </div>
     </div>
+  );
+}
+
+function ViewButton({
+  view,
+  activeView,
+  onSelect,
+  icon,
+  children,
+}: {
+  view: MenuView;
+  activeView: MenuView;
+  onSelect: (view: MenuView) => void;
+  icon: ReactNode;
+  children: ReactNode;
+}) {
+  const active = view === activeView;
+  return (
+    <button
+      type="button"
+      aria-pressed={active}
+      onClick={() => onSelect(view)}
+      className={active ? styles.viewButtonActive : styles.viewButton}
+    >
+      {icon}
+      {children}
+    </button>
   );
 }
