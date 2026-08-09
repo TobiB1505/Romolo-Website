@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/motion/Reveal";
-import { CucinaRotatingGallery, type CucinaDish } from "@/components/home/CucinaRotatingGallery";
+import { CucinaDishStrip, type CucinaDish } from "@/components/home/CucinaDishStrip";
 import { menuGroups } from "@/lib/data/menu";
 import { aboutContent } from "@/lib/data/restaurant";
 import type { MenuItem } from "@/lib/types";
@@ -22,11 +22,7 @@ function getSignatureDishes(): MenuItem[] {
     .filter((item): item is MenuItem => Boolean(item));
 }
 
-/**
- * Rotieren in der Collage durch: Slot i zeigt reihum die Gerichte i, i+3
- * (siehe CucinaRotatingGallery). Die Reihenfolge bestimmt also die Paarung
- * pro Slot – die beiden auffälligsten Teller liegen im großen Haupt-Slot.
- */
+/** Reihenfolge im Swipe-Streifen – die auffälligsten Teller zuerst. */
 const cucinaDishes: CucinaDish[] = [
   {
     src: "/images/cucina/scampi-alla-griglia.jpg",
@@ -66,7 +62,7 @@ export function CucinaSection() {
   return (
     <section id="cucina" data-home-section className={`${styles.cucina} scroll-anchor overflow-hidden bg-forest-dark py-section text-cream`}>
       <Container size="wide">
-        <div className="grid gap-16 lg:grid-cols-12 lg:gap-12">
+        <div className="grid gap-16 lg:grid-cols-12 lg:items-center lg:gap-12">
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-28">
               <Reveal>
@@ -106,7 +102,7 @@ export function CucinaSection() {
             </div>
           </div>
 
-          <CucinaRotatingGallery dishes={cucinaDishes} className="lg:col-span-7" />
+          <CucinaDishStrip dishes={cucinaDishes} className="lg:col-span-7" />
         </div>
       </Container>
     </section>
