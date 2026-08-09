@@ -36,6 +36,29 @@ const dessertImage = {
   alt: "Klassisches Tiramisù mit Espresso im warm beleuchteten Restaurant",
 };
 
+const moreDishes = [
+  {
+    src: "/images/cucina/spiedini-di-gamberi.jpg",
+    alt: "Gambero-Spiedini vom Grill mit Zucchini und Basilikum-Öl",
+    label: "Spiedini di Gamberi",
+  },
+  {
+    src: "/images/cucina/tagliatelle-piselli-e-vongole.jpg",
+    alt: "Tagliatelle mit Erbsen, Venusmuscheln und Tomaten-Sahne-Soße",
+    label: "Tagliatelle Piselli e Vongole",
+  },
+  {
+    src: "/images/cucina/pasta-pollo-e-funghi.jpg",
+    alt: "Linguine mit Hähnchen und Waldpilzen in Sahnesoße",
+    label: "Pasta Pollo e Funghi",
+  },
+  {
+    src: "/images/cucina/insalata-di-mare.jpg",
+    alt: "Insalata di Mare mit Muscheln, Venusmuscheln und Garnelen",
+    label: "Insalata di Mare",
+  },
+];
+
 export function CucinaSection() {
   const dishes = getSignatureDishes();
 
@@ -95,6 +118,20 @@ export function CucinaSection() {
               <Image src={dessertImage.src} alt={dessertImage.alt} fill sizes="(min-width: 1024px) 19vw, 44vw" className={styles.editorialImage} />
               <span className={styles.imageCaption}>Dolce finale</span>
             </ImageReveal>
+          </div>
+        </div>
+
+        <div className={styles.cucinaMoreDishes}>
+          <Reveal>
+            <span className={styles.cucinaMoreDishesLabel}>Dalla nostra cucina</span>
+          </Reveal>
+          <div className={styles.cucinaMoreDishesGrid}>
+            {moreDishes.map((dish, index) => (
+              <ImageReveal key={dish.src} delay={index * 0.06} className={`${styles.cucinaMoreDishesItem} overflow-hidden`}>
+                <Image src={dish.src} alt={dish.alt} fill sizes="(min-width: 1024px) 17vw, 46vw" className={styles.editorialImage} />
+                <span className={styles.imageCaption}>{dish.label}</span>
+              </ImageReveal>
+            ))}
           </div>
         </div>
       </Container>

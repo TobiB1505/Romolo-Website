@@ -134,6 +134,11 @@
 .cucinaGallery > div:hover .editorialImage, .storyImage:hover .editorialImage { transform: scale(1.035); filter: saturate(1.05); }
 .imageCaption, .storyImageLabel { position: absolute; z-index: 2; bottom: 1rem; left: 1rem; padding: 0.5rem 0.7rem; background: rgb(21 18 15 / 0.7); color: var(--color-cream); font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; backdrop-filter: blur(10px); }
 
+.cucinaMoreDishes { position: relative; margin-top: clamp(4rem, 8vw, 7rem); padding-top: clamp(2.5rem, 5vw, 3.5rem); border-top: 1px solid rgb(250 244 233 / 0.14); }
+.cucinaMoreDishesLabel { display: block; color: rgb(250 244 233 / 0.5); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
+.cucinaMoreDishesGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); margin-top: 1.75rem; }
+.cucinaMoreDishesItem { position: relative; aspect-ratio: 3 / 4; overflow: hidden; }
+
 .storyTitle { color: var(--color-ink); font-family: var(--font-display), Georgia, serif; font-size: clamp(3.7rem, 7.5vw, 7.5rem); line-height: 0.9; letter-spacing: -0.045em; }
 .storyTitle em { color: var(--color-terracotta); font-weight: 400; }
 .storyComposition { position: relative; margin-top: clamp(3rem, 7vw, 6rem); padding-bottom: clamp(8rem, 14vw, 12rem); }
@@ -204,6 +209,7 @@
   .cucinaImageMain { width: 82%; }
   .cucinaImageAccent { width: 46%; }
   .cucinaImageDetail { right: 0; width: 34%; }
+  .cucinaMoreDishesGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .storyComposition { padding-bottom: 16rem; }
   .storyImage { aspect-ratio: 4 / 5; }
   .storyCard { width: calc(100% - 1.5rem); }
